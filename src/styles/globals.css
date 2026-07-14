@@ -1,133 +1,210 @@
 /* ---- App Shell ---- */
-.app-layout {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  .navbar {
-    width: 260px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-right: 1px solid;
-    padding: 16px;
-  }
-  
-  .navbar__nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .main-content {
-    flex: 1;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  /* ---- Page Header ---- */
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* ---- Content Grid ---- */
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  
-  /* ---- Generic section boxes (temporary, for visualizing regions) ---- */
-  .message-composer,
-  .progress-timeline,
-  .technical-details,
-  .communication-preview {
-    border: 1px solid;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .progress-timeline__step {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .technical-details__header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .technical-details__key-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  
-  .communication-preview__avatars {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .communication-preview__row {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid;
-    padding: 4px 0;
-  }
-  
-  .status-card {
-    border: 1px solid;
-    padding: 8px;
-  }
-  
-  .status-pill {
-    border: 1px solid;
-    padding: 4px 8px;
-    display: inline-flex;
-    gap: 4px;
-  }
-  
-  /* ---- Responsive: collapse to single column below 1024px ---- */
-  @media (max-width: 1024px) {
-    .content-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .app-layout {
-      flex-direction: column;
-    }
-    .navbar {
-      width: 100%;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  .message-composer__simulation-controls {
-    border: 1px solid;
-    padding: 12px;
-    display: flex;
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid;
+  padding: 12px 24px;
+}
+
+.top-bar__brand,
+.top-bar__pills {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid;
+  padding: 16px;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-controls {
+  border: 1px solid;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quick-controls__row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  padding: 4px 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---- Panels Row (Alice / Quantum Channel / Bob) ---- */
+.panels-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 24px;
+}
+
+.alice-panel,
+.quantum-channel-panel,
+.bob-panel {
+  border: 1px solid;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message-composer {
+  border: 1px solid;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-window {
+  border: 1px solid;
+  padding: 8px;
+}
+
+.chat-window__bubble {
+  border: 1px solid;
+  padding: 6px;
+  margin-top: 6px;
+}
+
+.progress-timeline {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-timeline__step {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  padding: 4px 0;
+}
+
+.key-exchange-visualizer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid;
+  padding: 16px;
+}
+
+.quantum-channel-panel__banner {
+  border: 1px solid;
+  padding: 12px;
+  text-align: center;
+}
+
+.bob-panel__decrypted,
+.bob-panel__quick-reply {
+  border: 1px solid;
+  padding: 8px;
+}
+
+.bob-panel__reply-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---- Bottom Row (Stats / Chart / Session Summary) ---- */
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.quantum-statistics,
+.photon-chart,
+.session-summary {
+  border: 1px solid;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-card {
+  border: 1px solid;
+  padding: 8px;
+}
+
+.status-pill {
+  border: 1px solid;
+  padding: 4px 8px;
+  display: inline-flex;
+  gap: 4px;
+}
+
+.session-summary__row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  padding: 4px 0;
+}
+
+.footer-disclaimer {
+  border-top: 1px solid;
+  padding: 12px 24px;
+  text-align: center;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1200px) {
+  .panels-row {
+    grid-template-columns: 1fr;
+  }
+  .bottom-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
     flex-direction: column;
-    gap: 8px;
   }
-  
-  .message-composer__control {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid;
-    padding: 4px 0;
+  .sidebar {
+    width: 100%;
   }
+}
+.analytics-chart {
+  border: 1px solid;
+  padding: 24px;
+  text-align: center;
+}

@@ -1,28 +1,52 @@
+import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
-import PageHeader from "../../components/PageHeader/PageHeader";
-import MessageComposer from "../../components/MessageComposer/MessageComposer";
-import ProgressTimeline from "../../components/ProgressTimeline/ProgressTimeline";
-import TechnicalDetails from "../../components/TechnicalDetails/TechnicalDetails";
-import CommunicationPreview from "../../components/CommunicationPreview/CommunicationPreview";
+import QuickControls from "../../components/QuickControls/QuickControls";
+import AlicePanel from "../../components/AlicePanel/AlicePanel";
+import QuantumChannelPanel from "../../components/QuantumChannelPanel/QuantumChannelPanel";
+import BobPanel from "../../components/BobPanel/BobPanel";
+import StatusCard from "../../components/StatusCard/StatusCard";
+import AnalyticsChart from "../../components/AnalyticsChart/AnalyticsChart";
+import SessionSummary from "../../components/SessionSummary/SessionSummary";
 
 export default function Dashboard() {
   return (
-    <div className="app-layout">
-      <Navbar />
+    <div className="app-shell">
+      <TopBar />
 
-      <main className="main-content">
-        <PageHeader title="New Secure Message" />
+      <div className="body">
+        <aside className="sidebar">
+          <Navbar />
+          <QuickControls />
+        </aside>
 
-        <div className="content-grid content-grid--row-1">
-          <MessageComposer />
-          <ProgressTimeline />
-        </div>
+        <main className="main-content">
+          <div className="panels-row">
+            <AlicePanel />
+            <QuantumChannelPanel />
+            <BobPanel />
+          </div>
 
-        <div className="content-grid content-grid--row-2">
-          <TechnicalDetails />
-          <CommunicationPreview />
-        </div>
-      </main>
+          <div className="bottom-row">
+            <div className="quantum-statistics">
+              <p>Quantum Statistics</p>
+              <StatusCard label="QBER" value="--%" />
+              <StatusCard label="Key Length" value="-- bits" />
+              <StatusCard label="Photons Sent" value="----" />
+            </div>
+
+            <div className="photon-chart">
+              <p>Photon Transmission Overview</p>
+              <AnalyticsChart />
+            </div>
+
+            <SessionSummary />
+          </div>
+        </main>
+      </div>
+
+      <footer className="footer-disclaimer">
+        <p>[Disclaimer Placeholder]</p>
+      </footer>
     </div>
   );
 }
