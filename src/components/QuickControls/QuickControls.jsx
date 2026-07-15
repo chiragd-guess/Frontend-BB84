@@ -1,24 +1,38 @@
-export default function QuickControls() {
-    return (
-      <div className="quick-controls">
-        <p>Quick Controls</p>
-  
-        <div className="quick-controls__row">
-          <label>Noise Level</label>
-          <p>[Slider Placeholder — 0-20%]</p>
-        </div>
-  
-        <div className="quick-controls__row">
-          <label>Eve Interference</label>
-          <p>[Toggle Placeholder]</p>
-        </div>
-  
-        <div className="quick-controls__row">
-          <label>Channel Type</label>
-          <p>[Select Placeholder — Ideal]</p>
-        </div>
-  
-        <button>Run Simulation</button>
+export default function QuickControls({
+  noiseLevel,
+  setNoiseLevel,
+  eveEnabled,
+  setEveEnabled,
+}) {
+  return (
+    <div className="quick-controls">
+      <p>Quick Controls</p>
+
+      <div className="quick-controls__row">
+        <label htmlFor="noise-slider">Noise Level</label>
+        <input
+          id="noise-slider"
+          type="range"
+          min="0"
+          max="20"
+          value={noiseLevel}
+          onChange={(e) => setNoiseLevel(Number(e.target.value))}
+        />
+        <span>{noiseLevel}%</span>
       </div>
-    );
-  }
+
+      <div className="quick-controls__row">
+        <label htmlFor="eve-toggle">Eve Interference</label>
+        <input
+          id="eve-toggle"
+          type="checkbox"
+          checked={eveEnabled}
+          onChange={(e) => setEveEnabled(e.target.checked)}
+        />
+        <span>{eveEnabled ? "ON" : "OFF"}</span>
+      </div>
+
+      <button>Run Simulation</button>
+    </div>
+  );
+}

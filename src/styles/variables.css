@@ -1,0 +1,18 @@
+:root {
+    /* ---- Spacing Scale ---- */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 24px;
+    --space-2xl: 32px;
+  
+    /* ---- Layout Sizing ---- */
+    --sidebar-width: clamp(200px, 18vw, 260px);
+    --content-max-width: 1600px;
+  
+    /* ---- Breakpoints (for reference in comments; media queries use raw px) ---- */
+    --bp-tablet: 768px;
+    --bp-laptop: 1024px;
+    --bp-desktop: 1440px;
+  }

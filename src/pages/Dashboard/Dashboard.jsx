@@ -1,3 +1,4 @@
+import { useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
 import QuickControls from "../../components/QuickControls/QuickControls";
@@ -9,14 +10,22 @@ import AnalyticsChart from "../../components/AnalyticsChart/AnalyticsChart";
 import SessionSummary from "../../components/SessionSummary/SessionSummary";
 
 export default function Dashboard() {
+  const [noiseLevel, setNoiseLevel] = useState(3);
+  const [eveEnabled, setEveEnabled] = useState(false);
+
   return (
     <div className="app-shell">
-      <TopBar />
+      <TopBar noiseLevel={noiseLevel} eveEnabled={eveEnabled} />
 
       <div className="body">
         <aside className="sidebar">
           <Navbar />
-          <QuickControls />
+          <QuickControls
+            noiseLevel={noiseLevel}
+            setNoiseLevel={setNoiseLevel}
+            eveEnabled={eveEnabled}
+            setEveEnabled={setEveEnabled}
+          />
         </aside>
 
         <main className="main-content">
