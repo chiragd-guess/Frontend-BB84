@@ -310,3 +310,21 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.nav-link {
+  display: block;
+  text-decoration: none;
+  padding: var(--space-sm);
+  border: 1px solid transparent;
+}
+
+.nav-link--active {
+  border: 1px solid;
+  font-weight: bold;
+}
+
+.about-page {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}

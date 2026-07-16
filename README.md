@@ -344,3 +344,35 @@ http://localhost:5173
 ## One recommendation
 
 I would rename the repository from **`Frontend_BB84`** to something like **`QuantumSecureMessenger`** or **`QuantumSecureMessenger-Frontend`** once your mentor approves. It better reflects the project's purpose than a name focused solely on the BB84 protocol.
+
+
+# 👥 Division of Work
+
+### 🖥️ Dashboard (Chirag)
+
+- `pages/Dashboard/Dashboard.jsx`
+- `AlicePanel`
+- `BobPanel`
+- `QuantumChannelPanel`
+- `MessageComposer`
+- `ChatWindow`
+- `ProgressTimeline`
+- `KeyExchangeVisualizer`
+- `TopBar`
+- `QuickControls`
+- `StatusCard`
+- `SessionSummary`
+- `AnalyticsChart`
+
+### 📊 Analytics & ℹ️ About (Drone)
+
+- `pages/Analytics/Analytics.jsx`
+- `pages/About/About.jsx`
+- Any Analytics/About-specific components
+
+### 🤝 Shared Files
+
+- `Navbar.jsx`
+- `AppRouter.jsx`
+- `globals.css`
+- `variables.css`
