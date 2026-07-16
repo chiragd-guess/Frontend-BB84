@@ -132,7 +132,7 @@ export default function MessageComposer({ simulation, setSimulation }) {
   return (
     <div className="message-composer">
       <label htmlFor="message-input">
-        {keyEstablished ? "Reply to Bob" : "Start Secure Conversation"}
+        {keyEstablished ? "Bob" : "Start Secure Conversation"}
       </label>
       <textarea
         id="message-input"

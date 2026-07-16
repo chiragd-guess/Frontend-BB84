@@ -5,35 +5,54 @@ const TOTAL_STAGES = 8;
 const STAGE_DELAY_MS = 600;
 
 function timestamp() {
-  return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function runBB84(setSimulation, messageText) {
   let stage = 1;
+
   const interval = setInterval(() => {
-    setSimulation((s) => ({ ...s, protocol: { stage } }));
+
+    setSimulation((s) => ({
+      ...s,
+      protocol: {
+        stage,
+      },
+    }));
+
     stage++;
+
     if (stage > TOTAL_STAGES) {
+
       clearInterval(interval);
+
       setSimulation((s) => ({
         ...s,
+
         status: "completed",
-        protocol: { stage: TOTAL_STAGES },
+
+        protocol: {
+          stage: TOTAL_STAGES,
+        },
+
         bob: {
           ...s.bob,
-          encryptedMessage: "110010101011001010101001",
-          decryptedMessage: messageText,
+          encryptedMessage:
+            "110010101011001010101001",
+
+          decryptedMessage:
+            messageText,
         },
+
         analytics: {
-          qber: s.channel.eve ? 25.0 : parseFloat((Math.random() * 3 + 1).toFixed(2)),
+          qber: s.channel.eve ? 25 : 2.23,
           photonsSent: 512,
           keyLength: 256,
         },
-        session: {
-          id: `QKD-${Date.now().toString().slice(-4)}`,
-          secure: !s.channel.eve,
-          duration: "1.3 s",
-        },
+
         messages: [
           ...s.messages,
           {
@@ -43,38 +62,88 @@ function runBB84(setSimulation, messageText) {
             text: messageText,
           },
         ],
+
         bob_composer: "",
       }));
+
     }
+
   }, STAGE_DELAY_MS);
 }
 
-export default function BobPanel({ simulation, setSimulation }) {
+
+
+export default function BobPanel({
+  simulation,
+  setSimulation,
+}) {
+
   const [showTechnical, setShowTechnical] = useState(false);
-  const reply = simulation.bob_composer || "";
-  const keyEstablished = simulation.status === "completed";
-  const isRunning = simulation.status === "running";
+
+
+  const reply =
+    simulation.bob_composer || "";
+
+
+  const keyEstablished =
+    simulation.status === "completed";
+
+
+  const isRunning =
+    simulation.status === "running";
+
+
 
   const handleChange = (e) => {
-    setSimulation((prev) => ({ ...prev, bob_composer: e.target.value }));
+
+    setSimulation((prev) => ({
+      ...prev,
+      bob_composer: e.target.value,
+    }));
+
   };
 
+
+
   const handleSend = () => {
+
     if (!reply.trim()) return;
 
+
+
     if (!keyEstablished) {
+
       setSimulation((prev) => ({
         ...prev,
+
         status: "running",
-        protocol: { stage: 0 },
+
+        protocol: {
+          stage: 0,
+        },
+
+        initiator: "Bob",
+
         bob_composer: reply,
       }));
-      runBB84(setSimulation, reply);
+
+
+      runBB84(
+        setSimulation,
+        reply
+      );
+
+
     } else {
+
+
       setSimulation((prev) => ({
+
         ...prev,
+
         messages: [
           ...prev.messages,
+
           {
             id: Date.now(),
             sender: "Bob",
@@ -82,81 +151,183 @@ export default function BobPanel({ simulation, setSimulation }) {
             text: reply,
           },
         ],
+
         bob_composer: "",
+
       }));
+
     }
+
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
+
 
   return (
-    <section className="bob-panel">
-      <p>Bob (Receiver) — [Status: Online]</p>
 
-      <ChatWindow
-        title="Bob Chat"
-        messages={simulation.messages}
-        emptyText="Waiting for a message..."
-      />
+<section className="bob-panel">
 
-      <div className="message-composer">
-        <label htmlFor="bob-input">
-          {keyEstablished ? "Reply to Alice" : "Start Secure Conversation"}
-        </label>
-        <textarea
-          id="bob-input"
-          placeholder={
-            keyEstablished
-              ? "Type your reply..."
-              : "Type a message to initiate BB84 key exchange..."
-          }
-          rows={4}
-          maxLength={500}
-          value={reply}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          disabled={isRunning}
-        />
-        <p>{reply.length} / 500</p>
-        <button
-          onClick={handleSend}
-          disabled={!reply.trim() || isRunning}
-        >
-          {isRunning
-            ? "Transmitting..."
-            : keyEstablished
-            ? "Send Reply"
-            : "Send Message"}
-        </button>
-      </div>
 
-      {simulation.messages.length > 0 && (
-        <div className="bob-panel__technical">
-          <button
-            className="bob-panel__technical-toggle"
-            onClick={() => setShowTechnical((v) => !v)}
-          >
-            {showTechnical ? "▲ Hide" : "▼ Show"} Technical Details
-          </button>
-          {showTechnical && (
-            <div className="bob-panel__technical-content">
-              <div className="bob-panel__technical-row">
-                <span>Last Encrypted</span>
-                <code>{simulation.bob.encryptedMessage}</code>
-              </div>
-              <div className="bob-panel__technical-row">
-                <span>Last Message</span>
-                <code>{simulation.messages[simulation.messages.length - 1]?.text}</code>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </section>
+<p>
+Bob
+</p>
+
+
+<ChatWindow
+
+title="Bob"
+
+messages={simulation.messages}
+
+emptyText="Start a secure conversation..."
+
+/>
+
+
+
+<div className="message-composer">
+
+
+<label>
+
+{
+keyEstablished
+?
+"Message Alice"
+:
+"Start Secure Conversation"
+}
+
+</label>
+
+
+
+<textarea
+
+rows={4}
+
+value={reply}
+
+onChange={handleChange}
+
+disabled={isRunning}
+
+/>
+
+
+
+<p>
+{reply.length}/500
+</p>
+
+
+
+<button
+
+onClick={handleSend}
+
+disabled={!reply.trim() || isRunning}
+
+>
+
+{
+isRunning
+?
+"Transmitting..."
+:
+"Send Message"
+}
+
+</button>
+
+
+</div>
+
+
+
+{
+simulation.messages.length > 0 && (
+
+<div className="bob-panel__technical">
+
+
+<button
+
+className="bob-panel__technical-toggle"
+
+onClick={() =>
+setShowTechnical((v)=>!v)
+}
+
+>
+
+{
+showTechnical
+?
+"▲ Hide Technical Details"
+:
+"▼ Show Technical Details"
+}
+
+</button>
+
+
+
+{
+showTechnical && (
+
+<div className="bob-panel__technical-content">
+
+
+<div className="bob-panel__technical-row">
+
+<span>
+Last Encrypted
+</span>
+
+
+<code>
+{simulation.bob.encryptedMessage}
+</code>
+
+</div>
+
+
+
+<div className="bob-panel__technical-row">
+
+<span>
+Last Message
+</span>
+
+
+<code>
+{
+simulation.messages[
+simulation.messages.length - 1
+]?.text
+}
+
+</code>
+
+</div>
+
+
+</div>
+
+)
+
+}
+
+
+</div>
+
+)
+
+}
+
+
+</section>
+
   );
+
 }

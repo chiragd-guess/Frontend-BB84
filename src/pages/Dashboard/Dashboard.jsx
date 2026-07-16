@@ -19,24 +19,41 @@ export default function Dashboard() {
   const setNoiseLevel = (val) =>
     setSimulation((prev) => ({
       ...prev,
-      channel: { ...prev.channel, noise: val },
+      channel: {
+        ...prev.channel,
+        noise: val,
+      },
     }));
 
   const setEveEnabled = (val) =>
     setSimulation((prev) => ({
       ...prev,
-      channel: { ...prev.channel, eve: val },
+      channel: {
+        ...prev.channel,
+        eve: val,
+      },
     }));
 
-  const handleReset = () => setSimulation(initialSimulation);
+  const handleReset = () => {
+    setSimulation({
+      ...initialSimulation,
+      initiator: null,
+    });
+  };
 
   const handleRun = () => {
-    if (!simulation.alice.message.trim()) return;
-    setSimulation((prev) => ({ ...prev, status: "running", protocol: { stage: 0 } }));
+    setSimulation((prev) => ({
+      ...prev,
+      status: "running",
+      protocol: {
+        stage: 0,
+      },
+    }));
   };
 
   return (
     <div className="app-shell">
+
       <TopBar
         noiseLevel={noiseLevel}
         eveEnabled={eveEnabled}
@@ -44,8 +61,11 @@ export default function Dashboard() {
       />
 
       <div className="body">
+
         <aside className="sidebar">
+
           <Navbar />
+
           <QuickControls
             noiseLevel={noiseLevel}
             setNoiseLevel={setNoiseLevel}
@@ -53,40 +73,80 @@ export default function Dashboard() {
             setEveEnabled={setEveEnabled}
             onRun={handleRun}
           />
+
         </aside>
 
+
         <main className="main-content">
+
           <div className="panels-row">
+
             <AlicePanel
               simulation={simulation}
               setSimulation={setSimulation}
             />
+
+
             <QuantumChannelPanel
-              currentStage={simulation.protocol.stage}
               simulation={simulation}
+              currentStage={simulation.protocol.stage}
             />
-            <BobPanel simulation={simulation} setSimulation={setSimulation} />
+
+
+            <BobPanel
+              simulation={simulation}
+              setSimulation={setSimulation}
+            />
+
           </div>
 
+
           <div className="bottom-row">
+
             <div className="quantum-statistics">
+
               <p>Quantum Statistics</p>
-              <StatusCard label="QBER" value={`${simulation.analytics.qber}%`} />
-              <StatusCard label="Key Length" value={`${simulation.analytics.keyLength} bits`} />
-              <StatusCard label="Photons Sent" value={simulation.analytics.photonsSent} />
+
+              <StatusCard
+                label="QBER"
+                value={`${simulation.analytics.qber}%`}
+              />
+
+              <StatusCard
+                label="Key Length"
+                value={`${simulation.analytics.keyLength} bits`}
+              />
+
+              <StatusCard
+                label="Photons Sent"
+                value={simulation.analytics.photonsSent}
+              />
+
             </div>
+
+
             <div className="photon-chart">
+
               <p>Photon Transmission Overview</p>
-              <AnalyticsChart simulation={simulation} />
+
+              <AnalyticsChart simulation={simulation}/>
+
             </div>
-            <SessionSummary simulation={simulation} />
+
+
+            <SessionSummary simulation={simulation}/>
+
           </div>
+
         </main>
+
       </div>
+
 
       <footer className="footer-disclaimer">
         <p>[Disclaimer Placeholder]</p>
       </footer>
+
     </div>
   );
 }
