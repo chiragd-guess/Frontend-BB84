@@ -658,7 +658,7 @@ Other pages except Dashboard like Analytics, About: ⏳ Remaining
 - `ChatWindow`
 - `ProgressTimeline`
 - `KeyExchangeVisualizer`
-- `TopBar`
+- `TopBar`n
 - `QuickControls`
 - `StatusCard`
 - `SessionSummary`
@@ -677,3 +677,133 @@ Other pages except Dashboard like Analytics, About: ⏳ Remaining
 - `AppRouter.jsx`
 - `globals.css`
 - `variables.css`
+
+
+## 📊 Analytics Page
+
+The **Analytics** page serves as a post-simulation report for the most recent BB84 Quantum Key Distribution session. Unlike the Dashboard, it does not execute the protocol or display live animations. Instead, it interprets the completed simulation and presents the results through clean metrics, visual summaries, and charts.
+
+Its purpose is to help users understand **what happened during the key exchange**, **whether the communication was secure**, and **how the protocol performed**.
+
+### Features
+
+* **Simulation Overview**
+
+  * Session ID
+  * Duration
+  * Noise Level
+  * Eve Interference Status
+  * Overall Protocol Result
+
+* **Key Metrics**
+
+  * Final Secret Key Length
+  * Quantum Bit Error Rate (QBER)
+  * Total Photons Sent
+  * Security Status
+  * Sifting Efficiencyx
+
+* **BB84 Statistics**
+
+  * Photons Sent vs Received
+  * Matching Bases
+  * Mismatched Bases
+  * Estimated Error Bits
+  * Final Shared Key Size
+
+* **Security Analysis**
+
+  * Channel Integrity Summary
+  * Risk Level
+  * Security Confidence Indicator
+  * Simple explanation of whether the session is considered secure
+
+* **Protocol Timeline**
+
+  * Visual overview of all BB84 stages
+  * Preparation
+  * Transmission
+  * Measurement
+  * Basis Comparison
+  * Error Estimation
+  * Key Generation
+  * Shows completion status for each stage
+
+* **Visual Charts**
+
+  * Photon Transmission Graph
+  * Basis Matching Comparison
+  * QBER Overview
+  * Simple visual representations of the completed session
+
+The Analytics page is designed to feel like an automatically generated scientific report rather than a monitoring dashboard.
+
+---
+
+# ℹ️ About Page
+
+The **About** page is an interactive learning centre built into the application. Rather than displaying technical documentation, it explains the BB84 protocol in a beginner-friendly and visual manner.
+
+Its goal is to ensure that even users with little or no knowledge of quantum cryptography can understand **how quantum-secure messaging works**.
+
+### Features
+
+* **Project Introduction**
+
+  * What QKDecode is
+  * Purpose of the application
+  * Why Quantum Key Distribution is important
+
+* **BB84 Workflow**
+
+  * Step-by-step visual explanation of the protocol
+  * Alice prepares photons
+  * Bob measures photons
+  * Basis comparison
+  * Shared key generation
+
+* **Protocol Essentials**
+
+  * Photon encoding
+  * Quantum bases
+  * Bit representation
+  * Secret key formation
+
+* **Security Advantages**
+
+  * Why BB84 is secure
+  * Eavesdropper detection
+  * Forward secrecy
+  * Quantum-safe communication
+
+* **Use Cases**
+
+  * Secure messaging
+  * Financial systems
+  * Government communication
+  * IoT security
+  * Critical infrastructure
+
+* **Technology Stack**
+
+  * BB84 Protocol
+  * Quantum Mechanics
+  * AES Encryption
+  * Python Backend
+  * Data Visualisation
+
+* **Project Information**
+
+  * Application overview
+  * Version information
+  * Developer information
+
+The About page acts as an educational companion to the Dashboard, transforming the application into both a **BB84 simulator** and an **interactive learning platform**.
+
+---
+
+## Overall Page Responsibilities
+
+| **Dashboard** | Execute and visualise the BB84 protocol in real time, allowing users to configure noise, Eve interference, and exchange secure messages.                                                           |
+| **Analytics** | Analyse the completed BB84 simulation using metrics, charts, security summaries, and protocol statistics. No live simulation is performed here.                                                    |
+| **About**     | Educate users about BB84 Quantum Key Distribution, explain the science behind the protocol, and demonstrate why quantum-secure communication is fundamentally different from classical encryption. |
