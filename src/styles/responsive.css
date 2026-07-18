@@ -1,0 +1,73 @@
+/* ============================================================
+   RESPONSIVE — All Media Queries
+   Nothing else lives here.
+   ============================================================ */
+
+/* =============================================================
+   Desktop:  >= 1440px  (default styles in other files)
+   Laptop:   1024px – 1439px
+   Tablet:   768px  – 1023px
+   Mobile:   < 768px
+   ============================================================= */
+
+/* ---- Laptop ---- */
+@media (max-width: 1439px) {
+  .main-content {
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+
+  .panels-row,
+  .bottom-row {
+    gap: var(--space-lg);
+  }
+}
+
+/* ---- Tablet: collapse 3-col panels to 1-col, keep sidebar ---- */
+@media (max-width: 1023px) {
+  .panels-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sidebar {
+    width: clamp(180px, 24vw, 220px);
+  }
+}
+
+/* ---- Small tablet / large mobile: sidebar moves to top, full stack ---- */
+@media (max-width: 767px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid;
+  }
+
+  .navbar ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .quick-controls {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .bottom-row {
+    grid-template-columns: 1fr;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

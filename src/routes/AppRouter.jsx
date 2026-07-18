@@ -7,9 +7,9 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/"          element={<Dashboard />} />
         <Route path="/analytics" element={<Analytics />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about"     element={<About />} />
       </Routes>
     </BrowserRouter>
   );

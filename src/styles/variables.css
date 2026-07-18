@@ -1,18 +1,28 @@
-:root {
-    /* ---- Spacing Scale ---- */
+/* ============================================================
+   VARIABLES — Design Tokens Only
+   No selectors. No animations. No layout.
+   ============================================================ */
+
+   :root {
+    /* Spacing */
     --space-xs: 4px;
     --space-sm: 8px;
-    --space-md: 12px;
-    --space-lg: 16px;
-    --space-xl: 24px;
-    --space-2xl: 32px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
   
-    /* ---- Layout Sizing ---- */
-    --sidebar-width: clamp(200px, 18vw, 260px);
+    /* Layout */
+    --sidebar-width: 240px;
     --content-max-width: 1600px;
   
-    /* ---- Breakpoints (for reference in comments; media queries use raw px) ---- */
-    --bp-tablet: 768px;
-    --bp-laptop: 1024px;
-    --bp-desktop: 1440px;
+    /* Colors */
+    --primary:   #6366f1;
+    --secondary: #a5b4fc;
+    --border:    #e2e8f0;
+  
+    /* Shape */
+    --radius: 6px;
+  
+    /* Motion */
+    --transition: 180ms ease;
   }

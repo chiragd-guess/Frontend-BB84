@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ simulation }) {
   return (
     <nav className="navbar">
       <ul>
@@ -8,7 +8,9 @@ export default function Navbar() {
           <NavLink
             to="/"
             end
-            className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
           >
             Dashboard
           </NavLink>
@@ -16,7 +18,10 @@ export default function Navbar() {
         <li>
           <NavLink
             to="/analytics"
-            className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+            state={{ simulation }}
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
           >
             Analytics
           </NavLink>
@@ -24,7 +29,9 @@ export default function Navbar() {
         <li>
           <NavLink
             to="/about"
-            className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
           >
             About
           </NavLink>

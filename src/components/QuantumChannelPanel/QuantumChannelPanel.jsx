@@ -23,7 +23,10 @@ export default function QuantumChannelPanel({
       />
 
 
-      <KeyExchangeVisualizer />
+<KeyExchangeVisualizer
+  currentStage={currentStage}
+  simulation={simulation}
+/>
 
 
       <div className="quantum-channel-panel__banner">

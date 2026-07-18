@@ -1,97 +1,6 @@
 import { useState } from "react";
 import ChatWindow from "../ChatWindow/ChatWindow";
-
-const TOTAL_STAGES = 8;
-const STAGE_DELAY_MS = 600;
-const ABORT_THRESHOLD = 11;
-
-function timestamp() {
-  return new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function createAbortMessage(qber) {
-  return {
-    id: Date.now(),
-    sender: "system",
-    time: timestamp(),
-    text: `⚠ BB84 Protocol Aborted — Eve detected (QBER: ${qber}%). Shared key discarded. Message was NOT transmitted. Disable Eve and retry.`,
-  };
-}
-
-function runBB84(setSimulation, messageText) {
-  let stage = 1;
-  let aborted = false;
-
-  const interval = setInterval(() => {
-    if (aborted) return;
-
-    setSimulation((s) => ({ ...s, protocol: { stage } }));
-
-    if (stage === 5) {
-      setTimeout(() => {
-        setSimulation((s) => {
-          const qber = s.channel.eve
-            ? 25.0
-            : parseFloat((Math.random() * 3 + 1).toFixed(2));
-
-          if (qber > ABORT_THRESHOLD) {
-            aborted = true;
-            clearInterval(interval);
-            return {
-              ...s,
-              status: "aborted",
-              protocol: { stage: 5 },
-              analytics: { qber, photonsSent: 512, keyLength: 0 },
-              session: { ...s.session, secure: false },
-              messages: [...s.messages, createAbortMessage(qber)],
-              bob_composer: "",
-            };
-          }
-          return s;
-        });
-      }, 100);
-    }
-
-    stage++;
-
-    if (stage > TOTAL_STAGES) {
-      clearInterval(interval);
-      setSimulation((s) => {
-        if (s.status === "aborted") return s;
-        const qber = parseFloat((Math.random() * 3 + 1).toFixed(2));
-        return {
-          ...s,
-          status: "completed",
-          protocol: { stage: TOTAL_STAGES },
-          bob: {
-            ...s.bob,
-            encryptedMessage: "110010101011001010101001",
-            decryptedMessage: messageText,
-          },
-          analytics: { qber, photonsSent: 512, keyLength: 256 },
-          session: {
-            id: `QKD-${Date.now().toString().slice(-4)}`,
-            secure: true,
-            duration: "1.3 s",
-          },
-          messages: [
-            ...s.messages,
-            {
-              id: Date.now(),
-              sender: "Bob",
-              time: timestamp(),
-              text: messageText,
-            },
-          ],
-          bob_composer: "",
-        };
-      });
-    }
-  }, STAGE_DELAY_MS);
-}
+import { runSimulation } from "../../services/simulationService";
 
 export default function BobPanel({ simulation, setSimulation }) {
   const [showTechnical, setShowTechnical] = useState(false);
@@ -108,16 +17,7 @@ export default function BobPanel({ simulation, setSimulation }) {
   const handleSend = () => {
     if (!reply.trim()) return;
 
-    if (!keyEstablished) {
-      setSimulation((prev) => ({
-        ...prev,
-        status: "running",
-        protocol: { stage: 0 },
-        initiator: "Bob",
-        bob_composer: reply,
-      }));
-      runBB84(setSimulation, reply);
-    } else {
+    if (keyEstablished) {
       setSimulation((prev) => ({
         ...prev,
         messages: [
@@ -125,13 +25,25 @@ export default function BobPanel({ simulation, setSimulation }) {
           {
             id: Date.now(),
             sender: "Bob",
-            time: timestamp(),
+            time: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
             text: reply,
           },
         ],
         bob_composer: "",
       }));
+      return;
     }
+
+    setSimulation((prev) => ({
+      ...prev,
+      initiator: "Bob",
+      bob_composer: reply,
+    }));
+
+    runSimulation(setSimulation, reply, "Bob");
   };
 
   const handleKeyDown = (e) => {

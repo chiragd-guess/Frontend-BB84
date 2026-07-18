@@ -1,0 +1,443 @@
+/* ============================================================
+   COMPONENTS — App Shell, Layout Wrappers & All Components
+   No keyframes. No media queries.
+   ============================================================ */
+
+/* ---- App Shell ---- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ---- Top Bar ---- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  border-bottom: 1px solid;
+  padding: var(--space-md) var(--space-xl);
+}
+
+.top-bar__brand,
+.top-bar__pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* ---- Body ---- */
+.body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  border-right: 1px solid;
+  padding: var(--space-lg);
+  overflow-y: auto;
+}
+
+/* ---- Navbar ---- */
+.navbar ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.nav-link {
+  display: block;
+  padding: var(--space-sm);
+  border: 1px solid transparent;
+  opacity: 0.75;
+}
+
+.nav-link:hover {
+  opacity: 1;
+}
+
+.nav-link--active {
+  border: 1px solid;
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* ---- Quick Controls ---- */
+.quick-controls {
+  border: 1px solid;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.quick-controls__row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  border-bottom: 1px solid;
+  padding: var(--space-xs) 0;
+}
+
+/* ---- Main Content ---- */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---- Panels Row (Alice / Quantum Channel / Bob) ---- */
+.panels-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+/* ---- Alice / Quantum Channel / Bob Panels ---- */
+.alice-panel,
+.quantum-channel-panel,
+.bob-panel {
+  border: 1px solid;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+/* ---- Message Composer ---- */
+.message-composer {
+  border: 1px solid;
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.message-composer textarea {
+  width: 100%;
+}
+
+/* ---- Chat Window ---- */
+.chat-window {
+  border: 1px solid;
+  padding: var(--space-sm);
+  overflow-wrap: break-word;
+}
+
+.chat-window__messages {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.chat-window__bubble {
+  border: 1px solid;
+  padding: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.chat-window__bubble--alice {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.chat-window__bubble--bob {
+  align-self: flex-start;
+}
+
+.chat-window__empty {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.chat-window__system {
+  margin: 16px 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #f59e0b;
+  background: #fff7ed;
+  color: #92400e;
+  text-align: center;
+  white-space: pre-line;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ---- Progress Timeline ---- */
+.progress-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.progress-timeline__step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 0;
+}
+
+.progress-step__icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.progress-step__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-step__content h4 {
+  font-size: 15px;
+}
+
+.progress-step__content span {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.progress-step__line {
+  position: absolute;
+  left: 18px;
+  top: 52px;
+  width: 1px;
+  height: calc(100% - 12px);
+  background: currentColor;
+  opacity: 0.25;
+}
+
+/* ---- Key Exchange Visualizer ---- */
+.key-exchange-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px;
+  position: relative;
+  border: 1px solid;
+}
+
+.endpoint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 2rem;
+  min-width: 70px;
+}
+
+.photon-lane {
+  flex: 1;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px dashed;
+  border-bottom: 1px dashed;
+}
+
+/* ---- Quantum States (travel through photon-lane) ---- */
+.quantum-state {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---- Basis Message ---- */
+.basis-message {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---- Message Photon ---- */
+.message-photon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 1.5rem;
+}
+
+/* ---- Eve Warning ---- */
+.eve-warning {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ---- Shared Key ---- */
+.shared-key {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---- Quantum Channel Panel Banner ---- */
+.quantum-channel-panel__banner {
+  border: 1px solid;
+  padding: var(--space-md);
+  text-align: center;
+}
+
+/* ---- Bob Panel ---- */
+.bob-panel__decrypted,
+.bob-panel__quick-reply {
+  border: 1px solid;
+  padding: var(--space-sm);
+}
+
+.bob-panel__technical {
+  border: 1px solid;
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bob-panel__technical-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.bob-panel__technical-toggle:hover {
+  opacity: 1;
+}
+
+.bob-panel__technical-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bob-panel__technical-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  border-bottom: 1px solid;
+  padding-bottom: var(--space-xs);
+}
+
+.bob-panel__technical-row code {
+  font-family: monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+  opacity: 0.8;
+}
+
+/* ---- Bottom Row (Stats / Chart / Session Summary) ---- */
+.bottom-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+
+/* ---- Analytics Chart ---- */
+.analytics-chart {
+  border: 1px solid;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+/* ---- Bottom Row Panels ---- */
+.quantum-statistics,
+.photon-chart,
+.session-summary {
+  border: 1px solid;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+/* ---- Status Card & Pill ---- */
+.status-card {
+  border: 1px solid;
+  padding: var(--space-sm);
+}
+
+.status-pill {
+  border: 1px solid;
+  padding: var(--space-xs) var(--space-sm);
+  display: inline-flex;
+  gap: var(--space-xs);
+}
+
+/* ---- Session Summary ---- */
+.session-summary__row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 1px solid;
+  padding: var(--space-xs) 0;
+}
+
+/* ---- Footer Disclaimer ---- */
+.footer-disclaimer {
+  border-top: 1px solid;
+  padding: var(--space-md) var(--space-xl);
+  text-align: center;
+}
+
+/* ---- Loading Overlay ---- */
+.loading-overlay {
+  border: 1px solid;
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+/* ---- About Page ---- */
+.about-page {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}

@@ -1,0 +1,237 @@
+/* ============================================================
+   ANIMATIONS — All Keyframes & Transitions
+   Only movement and transitions live here.
+   ============================================================ */
+
+
+/* ---------------- BUTTONS ---------------- */
+
+button {
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    opacity var(--transition);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+
+/* ---------------- INPUTS ---------------- */
+
+input,
+textarea {
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+textarea:hover,
+input:hover {
+  transform: translateY(-1px);
+}
+
+textarea:focus,
+input:focus {
+  transform: translateY(-1px);
+}
+
+
+/* ---------------- NAV ---------------- */
+
+.nav-link {
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.nav-link:hover {
+  transform: translateX(4px);
+}
+
+
+/* ---------------- CHAT ---------------- */
+
+.chat-window__bubble,
+.chat-window__system {
+  animation: messageAppear 250ms ease;
+}
+
+
+/* ---------------- TIMELINE ---------------- */
+
+.progress-timeline__step {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.progress-timeline__step.active {
+  animation: pulseStep 1.6s ease-in-out infinite;
+}
+
+.progress-timeline__step.completed {
+  animation: popStep 0.35s ease;
+}
+
+.progress-timeline__step.failed {
+  animation: shakeStep 0.45s ease;
+}
+
+
+/* ============================================================
+   KEYFRAMES — General UI
+   ============================================================ */
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseStep {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.02); }
+}
+
+@keyframes popStep {
+  0%   { transform: scale(0.95); opacity: 0; }
+  70%  { transform: scale(1.03); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes shakeStep {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-3px); }
+  40%  { transform: translateX(3px); }
+  60%  { transform: translateX(-2px); }
+  80%  { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+
+/* ============================================================
+   BB84 QUANTUM STATE ANIMATION
+   - Stage 2 lasts 1800ms, 3 qubits staggered 0.4s apart
+   - Each qubit gets 1.4s to fully cross the lane
+   - left:0 in components.css is the start anchor;
+     we move the element using translateX across the full lane
+   - 30vw reliably spans the photon-lane on all screen sizes
+   ============================================================ */
+
+.quantum-state {
+  animation-duration: 1.4s;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+.quantum--forward {
+  animation-name: quantumForward;
+}
+
+.quantum--backward {
+  animation-name: quantumBackward;
+}
+
+@keyframes quantumForward {
+  0%   { transform: translateX(0);    opacity: 0; }
+  8%   { opacity: 1; }
+  100% { transform: translateX(30vw); opacity: 1; }
+}
+
+@keyframes quantumBackward {
+  0%   { transform: translateX(30vw); opacity: 0; }
+  8%   { opacity: 1; }
+  100% { transform: translateX(0);    opacity: 1; }
+}
+
+
+/* ============================================================
+   BASIS EXCHANGE
+   - Stage 4 lasts 1800ms, single element crosses in 1.6s
+   ============================================================ */
+
+.basis-message {
+  animation-duration: 1.6s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+
+.basis--forward {
+  animation-name: basisForward;
+}
+
+.basis--backward {
+  animation-name: basisBackward;
+}
+
+@keyframes basisForward {
+  0%   { transform: translateX(0);    opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateX(30vw); opacity: 1; }
+}
+
+@keyframes basisBackward {
+  0%   { transform: translateX(30vw); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateX(0);    opacity: 1; }
+}
+
+
+/* ============================================================
+   MESSAGE ENCRYPTION
+   - Stage 7+ lasts 1800ms, single 🔒 crosses in 1.6s
+   ============================================================ */
+
+.message-photon {
+  animation-duration: 1.6s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+
+.message--forward {
+  animation-name: messageForward;
+}
+
+.message--backward {
+  animation-name: messageBackward;
+}
+
+@keyframes messageForward {
+  0%   { transform: translateX(0);    opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateX(30vw); opacity: 1; }
+}
+
+@keyframes messageBackward {
+  0%   { transform: translateX(30vw); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateX(0);    opacity: 1; }
+}
+
+
+/* ============================================================
+   OTHER UI
+   ============================================================ */
+
+@keyframes fadePage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
