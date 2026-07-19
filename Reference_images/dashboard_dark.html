@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BB84 // QUANTUM KEY EXCHANGE SIMULATOR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#141414;
+    --panel:#41423A;
+    --panel-light:#4c4d43;
+    --primary:#D9641E;
+    --primary-bright:#ED7D27;
+    --paper:#ECE2D2;
+    --paper-bright:#F7F7F7;
+    --line: rgba(236,226,210,0.14);
+    --line-strong: rgba(236,226,210,0.28);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--void);
+    background-image:
+      radial-gradient(circle, rgba(217,100,30,0.55) 0.6px, transparent 0.6px);
+    background-size: 7px 7px;
+    color:var(--paper-bright);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding: 28px;
+  }
+  .frame{
+    max-width:1400px;
+    margin:0 auto;
+    border:1px solid var(--line-strong);
+    background: linear-gradient(180deg, rgba(20,20,20,0.55), rgba(20,20,20,0.85));
+    backdrop-filter: blur(2px);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 28px;
+    border-bottom:1px solid var(--line-strong);
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:38px;height:38px;
+    border:2px solid var(--primary-bright);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    transform:rotate(45deg);
+    flex-shrink:0;
+  }
+  .brand-mark::after{
+    content:"";
+    width:10px;height:10px;
+    background:var(--primary-bright);
+    border-radius:50%;
+  }
+  .brand-text .kicker{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.28em;
+    color:var(--primary-bright);
+    text-transform:uppercase;
+  }
+  .brand-text h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:0.02em;
+    margin:2px 0 0;
+    text-transform:uppercase;
+  }
+  .brand-text h1 span{color:var(--primary-bright);}
+
+  .controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .ctrl-chip{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:1px solid var(--line-strong);
+    padding:8px 14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--paper);
+    background:rgba(0,0,0,0.2);
+  }
+  .ctrl-chip .lbl{color:var(--paper); opacity:0.65;}
+  .ctrl-chip .val{color:var(--primary-bright); font-weight:600;}
+  .slider{
+    -webkit-appearance:none;
+    appearance:none;
+    width:70px;height:2px;
+    background:var(--line-strong);
+    outline:none;
+  }
+  .slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--primary-bright);
+    cursor:pointer;
+    border:2px solid var(--void);
+  }
+  .toggle{
+    width:32px;height:16px;
+    border:1px solid var(--line-strong);
+    position:relative;
+    cursor:pointer;
+    background:rgba(0,0,0,0.3);
+  }
+  .toggle::after{
+    content:"";
+    position:absolute;
+    top:2px;left:2px;
+    width:10px;height:10px;
+    background:var(--paper);
+    transition:.2s;
+  }
+  .toggle.on{border-color:var(--primary-bright);}
+  .toggle.on::after{left:18px; background:var(--primary-bright);}
+
+  .btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:9px 18px;
+    border:1px solid var(--primary-bright);
+    background:var(--primary);
+    color:var(--paper-bright);
+    cursor:pointer;
+    font-weight:600;
+    transition:.15s;
+    display:flex;align-items:center;gap:8px;
+  }
+  .btn:hover{background:var(--primary-bright);}
+  .btn.ghost{
+    background:transparent;
+    color:var(--paper);
+    border-color:var(--line-strong);
+  }
+  .btn.ghost:hover{border-color:var(--paper); color:var(--paper-bright);}
+
+  /* ---------- main grid ---------- */
+  main{
+    display:grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap:0;
+  }
+  @media(max-width:980px){
+    main{grid-template-columns:1fr;}
+  }
+  .col{
+    border-right:1px solid var(--line-strong);
+    padding:24px;
+  }
+  main .col:last-child{border-right:none;}
+  .col.channel{background:rgba(0,0,0,0.18);}
+
+  .agent-head{
+    display:flex;align-items:center;gap:12px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:18px;
+  }
+  .avatar{
+    width:36px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk';
+    font-weight:700;
+    font-size:14px;
+    flex-shrink:0;
+  }
+  .avatar.alice{background:var(--primary); color:var(--paper-bright);}
+  .avatar.bob{background:var(--paper); color:var(--void);}
+  .agent-name{font-family:'Space Grotesk'; font-weight:700; font-size:16px; letter-spacing:0.02em; text-transform:uppercase;}
+  .status-dot{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:'JetBrains Mono'; font-size:10px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--paper); opacity:0.7;
+  }
+  .status-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary-bright);}
+  .status-dot.off::before{background:var(--panel-light); border:1px solid var(--line-strong);}
+  .status-dot.off{opacity:0.45;}
+
+  .chatlog{
+    background:rgba(0,0,0,0.25);
+    border:1px solid var(--line);
+    height:220px;
+    padding:14px;
+    font-family:'JetBrains Mono';
+    font-size:11px;
+    color:var(--paper);
+    opacity:0.55;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    text-align:center;
+  }
+  .chatrow{margin-top:10px; display:flex; gap:8px;}
+  .chatrow input{
+    flex:1;
+    background:rgba(0,0,0,0.3);
+    border:1px solid var(--line-strong);
+    color:var(--paper-bright);
+    font-family:'Inter';
+    font-size:12px;
+    padding:10px 12px;
+  }
+  .chatrow input::placeholder{color:var(--paper); opacity:0.4;}
+  .chatrow button{
+    width:38px;
+    background:var(--primary);
+    border:none;
+    color:var(--paper-bright);
+    cursor:pointer;
+  }
+  .col:last-child .chatrow button{background:var(--paper); color:var(--void);}
+  .charcount{font-family:'JetBrains Mono'; font-size:9px; color:var(--paper); opacity:0.4; margin-top:6px;}
+
+  /* ---------- channel ---------- */
+  .channel-title{
+    font-family:'Space Grotesk';
+    font-weight:700;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    text-align:center;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:4px;
+  }
+  .channel-title .sub{
+    display:block;
+    font-family:'JetBrains Mono';
+    font-size:10px;
+    color:var(--primary-bright);
+    letter-spacing:0.15em;
+    margin-top:4px;
+    font-weight:400;
+  }
+
+  .steps{margin-top:18px;}
+  .step{
+    display:flex;align-items:center;gap:12px;
+    padding:11px 4px;
+    border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono';
+  }
+  .step-idx{
+    width:22px;height:22px;
+    border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    font-size:10px;
+    color:var(--paper);
+    flex-shrink:0;
+  }
+  .step.active .step-idx{border-color:var(--primary-bright); color:var(--primary-bright);}
+  .step.done .step-idx{background:var(--primary); border-color:var(--primary); color:var(--paper-bright);}
+  .step-label{flex:1; font-size:12px; letter-spacing:0.02em; color:var(--paper-bright);}
+  .step-status{
+    font-size:9px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--paper); opacity:0.4;
+  }
+  .step.active .step-status{color:var(--primary-bright); opacity:1;}
+  .step.done .step-status{color:var(--primary); opacity:1;}
+
+  /* photon stream */
+  .stream-wrap{
+    margin-top:20px;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,0.3);
+    padding:18px 10px 10px;
+  }
+  .stream-endpoints{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono'; font-size:9px; letter-spacing:0.1em;
+    color:var(--paper); opacity:0.6; text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  svg.stream{width:100%; height:70px; display:block;}
+  .stream-status{
+    text-align:center;
+    font-family:'JetBrains Mono';
+    font-size:10px;
+    letter-spacing:0.08em;
+    color:var(--primary-bright);
+    text-transform:uppercase;
+    padding:10px 0 2px;
+  }
+
+  .run-row{margin-top:20px; display:flex; gap:10px;}
+  .run-row .btn{flex:1; justify-content:center;}
+
+  /* ---------- stats row ---------- */
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line-strong);
+  }
+  @media(max-width:700px){.stats-row{grid-template-columns:1fr;}}
+  .stat{
+    padding:22px 24px;
+    border-right:1px solid var(--line-strong);
+  }
+  .stats-row .stat:last-child{border-right:none;}
+  .stat-lbl{
+    font-family:'JetBrains Mono'; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--paper); opacity:0.6;
+  }
+  .stat-val{
+    font-family:'Space Grotesk'; font-weight:700; font-size:32px;
+    color:var(--paper-bright); margin-top:6px;
+  }
+  .stat-val span{font-size:15px; color:var(--primary-bright); font-weight:600;}
+
+  /* ---------- bottom grid ---------- */
+  .bottom{
+    display:grid;
+    grid-template-columns: 1.6fr 1fr;
+    border-top:1px solid var(--line-strong);
+  }
+  @media(max-width:900px){.bottom{grid-template-columns:1fr;}}
+  .panel{padding:24px; border-right:1px solid var(--line-strong);}
+  .bottom .panel:last-child{border-right:none;}
+  .panel-title{
+    font-family:'Space Grotesk'; font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .panel-title .legend{
+    display:flex; gap:14px; font-family:'JetBrains Mono'; font-size:9px;
+    text-transform:none; letter-spacing:0.04em; font-weight:400; color:var(--paper); opacity:0.7;
+  }
+  .legend span{display:flex; align-items:center; gap:5px;}
+  .legend i{width:12px; height:2px; display:inline-block;}
+  .legend .sent i{background:var(--primary-bright);}
+  .legend .recv i{background:var(--paper); background-image:repeating-linear-gradient(90deg,var(--paper) 0 4px, transparent 4px 7px);}
+
+  .summary-row{
+    display:flex; justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono'; font-size:11px;
+  }
+  .summary-row:last-child{border-bottom:none;}
+  .summary-row .k{color:var(--paper); opacity:0.6; letter-spacing:0.05em; text-transform:uppercase;}
+  .summary-row .v{color:var(--paper-bright); font-weight:600;}
+  .summary-row .v.accent{color:var(--primary-bright);}
+
+  footer{
+    padding:16px 28px;
+    border-top:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--paper); opacity:0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div class="brand-text">
+        <div class="kicker">Quantum secure comms</div>
+        <h1>BB84<span>//</span>SIM</h1>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctrl-chip">
+        <span class="lbl">Noise</span>
+        <input type="range" class="slider" id="noiseSlider" min="0" max="40" value="0">
+        <span class="val" id="noiseVal">0%</span>
+      </div>
+      <div class="ctrl-chip">
+        <span class="lbl">Eve</span>
+        <div class="toggle" id="eveToggle"></div>
+        <span class="val" id="eveVal">OFF</span>
+      </div>
+      <button class="btn ghost" id="resetBtn">⟲ Reset</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ALICE -->
+    <div class="col">
+      <div class="agent-head">
+        <div class="avatar alice">A</div>
+        <div>
+          <div class="agent-name">Alice</div>
+          <div class="status-dot">Online — Sender</div>
+        </div>
+      </div>
+      <div class="chatlog">No messages yet</div>
+      <div class="chatrow">
+        <input type="text" placeholder="Type a message to begin key exchange…" id="aliceInput">
+        <button>➤</button>
+      </div>
+      <div class="charcount">0 / 500</div>
+    </div>
+
+    <!-- CHANNEL -->
+    <div class="col channel">
+      <div class="channel-title">
+        Quantum Channel
+        <span class="sub">Polarization-encoded qubits · rectilinear + diagonal basis</span>
+      </div>
+
+      <div class="steps" id="stepsList">
+        <div class="step" data-i="1"><div class="step-idx">1</div><div class="step-label">Preparing photons</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="2"><div class="step-idx">2</div><div class="step-label">Sending photons</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="3"><div class="step-idx">3</div><div class="step-label">Receiver measuring</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="4"><div class="step-idx">4</div><div class="step-label">Basis comparison / sifting</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="5"><div class="step-idx">5</div><div class="step-label">QBER estimation</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="6"><div class="step-idx">6</div><div class="step-label">Shared key generation</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="7"><div class="step-idx">7</div><div class="step-label">Message encryption</div><div class="step-status">Waiting</div></div>
+        <div class="step" data-i="8"><div class="step-idx">8</div><div class="step-label">Ciphertext transmission</div><div class="step-status">Waiting</div></div>
+      </div>
+
+      <div class="stream-wrap">
+        <div class="stream-endpoints"><span>Alice</span><span>Bob</span></div>
+        <svg class="stream" viewBox="0 0 400 70" id="streamSvg">
+          <line x1="10" y1="35" x2="390" y2="35" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 4"/>
+        </svg>
+        <div class="stream-status" id="streamStatus">Awaiting key exchange…</div>
+      </div>
+
+      <div class="run-row">
+        <button class="btn" id="runBtn">▶ Run Simulation</button>
+      </div>
+    </div>
+
+    <!-- BOB -->
+    <div class="col">
+      <div class="agent-head">
+        <div class="avatar bob">B</div>
+        <div>
+          <div class="agent-name">Bob</div>
+          <div class="status-dot">Online — Receiver</div>
+        </div>
+      </div>
+      <div class="chatlog">No messages yet</div>
+      <div class="chatrow">
+        <input type="text" placeholder="Type message…" id="bobInput">
+        <button>➤</button>
+      </div>
+      <div class="charcount">0 / 500</div>
+    </div>
+  </main>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-lbl">QBER</div>
+      <div class="stat-val" id="qberVal">0<span>%</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Key Length</div>
+      <div class="stat-val" id="keyVal">0<span> bits</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Photons Sent</div>
+      <div class="stat-val" id="photonVal">0</div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="panel">
+      <div class="panel-title">
+        Photon transmission
+        <div class="legend">
+          <span class="sent"><i></i>Sent</span>
+          <span class="recv"><i></i>Received</span>
+        </div>
+      </div>
+      <svg viewBox="0 0 600 180" style="width:100%; height:180px;" id="chartSvg">
+        <line x1="0" y1="0" x2="0" y2="150" stroke="var(--line)" stroke-width="1"/>
+        <line x1="0" y1="150" x2="600" y2="150" stroke="var(--line)" stroke-width="1"/>
+        <polyline id="sentLine" points="" fill="none" stroke="var(--primary-bright)" stroke-width="2"/>
+        <polyline id="recvLine" points="" fill="none" stroke="var(--paper)" stroke-width="2" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Session summary</div>
+      <div class="summary-row"><span class="k">Start time</span><span class="v">--:--:--</span></div>
+      <div class="summary-row"><span class="k">Duration</span><span class="v" id="durVal">00:00</span></div>
+      <div class="summary-row"><span class="k">Noise level</span><span class="v" id="noiseSummary">0%</span></div>
+      <div class="summary-row"><span class="k">Eve interference</span><span class="v" id="eveSummary">OFF</span></div>
+      <div class="summary-row"><span class="k">Status</span><span class="v accent" id="statusVal">Waiting</span></div>
+      <div class="summary-row"><span class="k">Session ID</span><span class="v">---</span></div>
+    </div>
+  </div>
+
+  <footer>🔒 BB84 // SIM — Quantum Key Distribution Demo</footer>
+</div>
+
+<script>
+const noiseSlider = document.getElementById('noiseSlider');
+const noiseVal = document.getElementById('noiseVal');
+const noiseSummary = document.getElementById('noiseSummary');
+noiseSlider.addEventListener('input', () => {
+  noiseVal.textContent = noiseSlider.value + '%';
+  noiseSummary.textContent = noiseSlider.value + '%';
+});
+
+const eveToggle = document.getElementById('eveToggle');
+const eveVal = document.getElementById('eveVal');
+const eveSummary = document.getElementById('eveSummary');
+let eveOn = false;
+eveToggle.addEventListener('click', () => {
+  eveOn = !eveOn;
+  eveToggle.classList.toggle('on', eveOn);
+  eveVal.textContent = eveOn ? 'ON' : 'OFF';
+  eveSummary.textContent = eveOn ? 'ON' : 'OFF';
+});
+
+const steps = document.querySelectorAll('.step');
+const streamStatus = document.getElementById('streamStatus');
+const streamSvg = document.getElementById('streamSvg');
+const runBtn = document.getElementById('runBtn');
+const statusVal = document.getElementById('statusVal');
+const qberVal = document.getElementById('qberVal');
+const keyVal = document.getElementById('keyVal');
+const photonVal = document.getElementById('photonVal');
+const sentLine = document.getElementById('sentLine');
+const recvLine = document.getElementById('recvLine');
+const durVal = document.getElementById('durVal');
+
+const stepLabels = [
+  'Preparing photons','Sending photons','Receiver measuring',
+  'Basis comparison / sifting','QBER estimation','Shared key generation',
+  'Message encryption','Ciphertext transmission'
+];
+
+function drawPhotons(){
+  streamSvg.querySelectorAll('.photon').forEach(p=>p.remove());
+  const bases = ['↕','↔','↗','↘'];
+  for(let i=0;i<9;i++){
+    const x = 20 + i*42;
+    const g = document.createElementNS('http://www.w3.org/2000/svg','text');
+    g.setAttribute('class','photon');
+    g.setAttribute('x', x);
+    g.setAttribute('y', 40);
+    g.setAttribute('fill', 'var(--primary-bright)');
+    g.setAttribute('font-family','JetBrains Mono');
+    g.setAttribute('font-size','16');
+    g.setAttribute('opacity','0');
+    g.textContent = bases[Math.floor(Math.random()*4)];
+    g.style.transition = `opacity .3s ease ${i*70}ms, transform 1.1s ease ${i*70}ms`;
+    g.style.transform = 'translateX(-10px)';
+    streamSvg.appendChild(g);
+    requestAnimationFrame(()=>{
+      g.setAttribute('opacity','1');
+      g.style.transform = 'translateX(340px)';
+    });
+  }
+}
+
+let running = false;
+let sentPts = [0], recvPts=[0];
+let startTime = null;
+let timerInt = null;
+
+function updateChart(){
+  const w = 600/12;
+  sentLine.setAttribute('points', sentPts.map((v,i)=>`${i*w},${150-v}`).join(' '));
+  recvLine.setAttribute('points', recvPts.map((v,i)=>`${i*w},${150-v}`).join(' '));
+}
+
+function tickDuration(){
+  const s = Math.floor((Date.now()-startTime)/1000);
+  const mm = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  durVal.textContent = `${mm}:${ss}`;
+}
+
+runBtn.addEventListener('click', () => {
+  if(running) return;
+  running = true;
+  runBtn.textContent = '■ Running…';
+  statusVal.textContent = 'Running';
+  startTime = Date.now();
+  timerInt = setInterval(tickDuration, 1000);
+  sentPts=[0]; recvPts=[0]; updateChart();
+
+  steps.forEach(s=>{s.classList.remove('active','done'); s.querySelector('.step-status').textContent='Waiting';});
+
+  let i = 0;
+  const noise = parseInt(noiseSlider.value,10);
+
+  function nextStep(){
+    if(i>0){
+      steps[i-1].classList.remove('active');
+      steps[i-1].classList.add('done');
+      steps[i-1].querySelector('.step-status').textContent = 'Done';
+    }
+    if(i>=steps.length){
+      streamStatus.textContent = eveOn ? 'Key compromised — eavesdropper detected' : 'Secure key established';
+      statusVal.textContent = eveOn ? 'Compromised' : 'Secure';
+      runBtn.textContent = '▶ Run Simulation';
+      clearInterval(timerInt);
+      running = false;
+      return;
+    }
+    steps[i].classList.add('active');
+    steps[i].querySelector('.step-status').textContent = 'Active';
+    streamStatus.textContent = stepLabels[i] + '…';
+
+    if(i===1){ drawPhotons(); }
+    if(i>=1){
+      const sentN = Math.min(100, (sentPts[sentPts.length-1]||0) + 12);
+      const lossRate = 1 - (noise/100)*0.6 - (eveOn?0.15:0);
+      const recvN = Math.max(0, Math.min(100, (recvPts[recvPts.length-1]||0) + 12*lossRate));
+      sentPts.push(sentN); recvPts.push(recvN);
+      updateChart();
+      photonVal.textContent = Math.round(sentN*4);
+    }
+    if(i===4){
+      const qber = Math.min(50, Math.round(noise*0.9 + (eveOn?22:0) + Math.random()*3));
+      qberVal.innerHTML = qber + '<span>%</span>';
+    }
+    if(i===5){
+      const q = parseInt(qberVal.textContent,10) || 0;
+      const key = q>25 ? 0 : Math.round(256 * (1-q/25));
+      keyVal.innerHTML = key + '<span> bits</span>';
+    }
+    i++;
+    setTimeout(nextStep, 900);
+  }
+  nextStep();
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  location.reload();
+});
+</script>
+
+</body>
+</html>
