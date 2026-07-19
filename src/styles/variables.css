@@ -1,28 +1,48 @@
 /* ============================================================
-   VARIABLES — Design Tokens Only
-   No selectors. No animations. No layout.
-   ============================================================ */
+   BB84 DESIGN TOKENS
+   Layout + spacing only
+   Colours are handled in themes.css
+============================================================ */
 
-   :root {
-    /* Spacing */
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-  
-    /* Layout */
-    --sidebar-width: 240px;
-    --content-max-width: 1600px;
-  
-    /* Colors */
-    --primary:   #6366f1;
-    --secondary: #a5b4fc;
-    --border:    #e2e8f0;
-  
-    /* Shape */
-    --radius: 6px;
-  
-    /* Motion */
-    --transition: 180ms ease;
-  }
+:root {
+
+  /* Layout */
+  --sidebar-width:240px;
+  --content-max-width:1400px;
+  /* Status Colors */
+
+--warning:#f59e0b;
+--warning-bg:rgba(245,158,11,.12);
+--warning-text:#92400e;
+
+--success:#22c55e;
+--danger:#ef4444;
+--info:#3b82f6;
+
+
+  /* Spacing */
+  --space-xs:4px;
+  --space-sm:8px;
+  --space-md:16px;
+  --space-lg:24px;
+  --space-xl:32px;
+  --space-2xl:48px;
+
+
+  /* Radius */
+  --radius-sm:0px;
+  --radius-md:0px;
+  --radius-lg:0px;
+
+
+  /* Animation */
+  --transition-fast:.15s ease;
+  --transition:.25s ease;
+
+
+  /* Typography */
+  --font-body:"Inter",sans-serif;
+  --font-heading:"Space Grotesk",sans-serif;
+  --font-mono:"JetBrains Mono",monospace;
+
+}

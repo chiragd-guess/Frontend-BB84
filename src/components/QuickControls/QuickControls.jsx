@@ -1,3 +1,4 @@
+import ThemeToggle from "../ui/ThemeToggle";
 export default function QuickControls({
   noiseLevel,
   setNoiseLevel,
@@ -73,27 +74,21 @@ export default function QuickControls({
       <div className="quick-controls__row">
 
         <label htmlFor="noise-slider">
-          Noise Level
+          Noise 
         </label>
 
 
+       
         <input
-
-          id="noise-slider"
-
-          type="range"
-
-          min="0"
-
-          max="20"
-
-          value={noiseLevel}
-
-          onChange={(e)=>
-            setNoiseLevel(Number(e.target.value))
-          }
-
-        />
+  className="noise-slider"
+  id="noise-slider"
+  type="range"
+  min="0"
+  max="20"
+  step="1"
+  value={noiseLevel}
+  onChange={(e)=>setNoiseLevel(Number(e.target.value))}
+/>
 
 
         <span>
@@ -110,7 +105,7 @@ export default function QuickControls({
 
 
         <label htmlFor="eve-toggle">
-          Eve Interference
+          Eve
         </label>
 
 
@@ -138,8 +133,10 @@ export default function QuickControls({
 
 
       <button onClick={onRun}>
-        Run Simulation
-      </button>
+  Run Simulation
+</button>
+
+<ThemeToggle />
 
 
     </div>

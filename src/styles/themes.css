@@ -1,0 +1,250 @@
+[data-theme="dark"] {
+  --button-text:#141414;
+  --accent-soft:rgba(237,125,39,.12);
+
+  /* WARNING STATES */
+  --warning:#f59e0b;
+  --warning-bg:rgba(245,158,11,.12);
+  --warning-text:#fef3c7;
+
+  --success:#22c55e;
+  --danger:#ef4444;
+  --info:#60a5fa;
+    /* Quantum Environment */
+    --quantum-glow:
+    rgba(237,125,39,.18);
+  
+    --quantum-grid:
+    rgba(237,125,39,.06);
+
+
+  /* MAIN REFERENCE COLORS */
+
+  --bg:#141414;
+
+  --bg-panel:
+rgba(65,66,58,.75);
+
+  --surface:
+  rgba(0,0,0,.25);
+
+
+  --text-primary:#F8FAFC;
+  --text-secondary:#A8A29E;
+
+
+  --accent:#ED7D27;
+
+  --accent-hover:#D9641E;
+
+
+  --border-color:
+  rgba(236,226,210,.28);
+
+
+
+  /* CARDS */
+  --card-bg:
+linear-gradient(
+    180deg,
+    rgba(20,20,20,.35),
+    rgba(20,20,20,.65)
+);
+
+
+  --shadow:
+  0 20px 60px rgba(0,0,0,.35);
+
+
+
+  /* IMPORTANT:
+     BACKGROUND DOT PATTERN
+  */
+
+
+  --background-pattern:
+
+radial-gradient(
+  circle,
+  rgba(217,100,30,.18) 1px,
+  transparent 1.2px
+),
+radial-gradient(
+  circle,
+  rgba(217,100,30,.18) .5px,
+  transparent .7px
+);
+}
+/* ================= LIGHT MODE ================= */
+
+
+[data-theme="light"] {
+  --button-text:#ffffff;
+  --accent-soft:rgba(217,100,30,.10);
+  --warning:#d97706;
+  --warning-bg:rgba(217,100,30,.10);
+  --warning-text:#78350f;
+
+  --success:#16a34a;
+  --danger:#dc2626;
+  --info:#2563eb;
+  /* Quantum Environment */
+  --quantum-glow:
+  rgba(217,100,30,.10);
+
+  --quantum-grid:
+  rgba(217,100,30,.04);
+
+
+  --bg:#F7F7F7;
+
+
+  --bg-panel:
+rgba(236,226,210,.75);
+
+
+  --surface:
+  rgba(255,255,255,.75);
+
+
+
+  --text-primary:#18181B;
+  --text-secondary:#52525B;
+
+
+
+  --accent:#D9641E;
+
+
+  --accent-hover:#B94E12;
+
+
+
+  --border-color:
+  rgba(65,66,58,.32);
+
+
+
+  --card-bg:
+linear-gradient(
+    180deg,
+    rgba(255,255,255,.55),
+    rgba(255,255,255,.78)
+);
+
+
+
+  --shadow:
+
+  0 20px 60px rgba(65,66,58,.12);
+
+
+
+  --warning:#d97706;
+
+  --warning-bg:
+  rgba(217,119,6,.12);
+
+  --warning-text:#92400e;
+
+
+
+  --background-pattern:
+
+radial-gradient(
+  circle,
+  rgba(217,100,30,.25) .8px,
+  transparent .8px
+);
+}
+
+/* ================= GLOBAL THEME ================= */
+
+
+html,
+body{
+    background-color:var(--bg);
+
+    background-image:
+        var(--background-pattern),
+        url("../assets/quantum-bg.svg");
+
+    background-size:
+        28px 28px,
+        cover;
+
+    background-repeat:
+        repeat,
+        no-repeat;
+
+    background-attachment:
+        fixed,
+        fixed;
+}
+/* cards */
+
+.alice-panel,
+.quantum-channel-panel,
+.bob-panel,
+.quantum-statistics,
+.photon-chart,
+.session-summary,
+.quick-controls,
+.status-card,
+.status-pill,
+.message-composer,
+.chat-window,
+.key-exchange-visualizer,
+.analytics-chart {
+
+
+
+  background: var(--card-bg);
+
+
+  border:
+  1px solid var(--border-color);
+
+
+  box-shadow:
+  var(--shadow);
+
+
+  backdrop-filter:
+  blur(4px);
+
+}
+
+
+
+/* inputs */
+
+
+input,
+textarea,
+select {
+
+
+  background:
+  var(--surface);
+
+
+  color:
+  var(--text-primary);
+
+
+  border:
+  1px solid var(--border-color);
+
+}
+
+
+
+::placeholder {
+
+  color:
+  var(--text-secondary);
+
+  opacity:.55;
+
+}

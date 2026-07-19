@@ -55,13 +55,38 @@ export default function BobPanel({ simulation, setSimulation }) {
 
   return (
     <section className="bob-panel">
-      <p>Bob (Receiver) — [Status: Online]</p>
+      <div className="chat-header">
 
-      <ChatWindow
-        title="Bob Chat"
-        messages={simulation.messages}
-        emptyText="Start a secure conversation..."
-      />
+<div className="chat-user">
+
+  <div className="chat-avatar">
+    👨
+  </div>
+
+  <div className="chat-user-info">
+
+    <h3>Bob</h3>
+
+    <div className="chat-status">
+      <span className="chat-status-dot"></span>
+      Online 
+    </div>
+
+  </div>
+
+</div>
+
+<div className="chat-security">
+  BB84 Secured
+</div>
+
+</div>
+
+<ChatWindow
+title=""
+messages={simulation.messages}
+emptyText="Waiting for secure quantum message..."
+/>
 
       <div className="message-composer">
         <label htmlFor="bob-input">

@@ -5,12 +5,37 @@ export default function AlicePanel({ simulation, setSimulation }) {
   return (
     <section className="alice-panel">
 
-      <p>Alice — [Status: Online]</p>
+      <div className="chat-header">
+
+        <div className="chat-user">
+
+          <div className="chat-avatar">
+            👩
+          </div>
+
+          <div className="chat-user-info">
+
+            <h3>Alice</h3>
+
+            <div className="chat-status">
+              <span className="chat-status-dot"></span>
+              Online 
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="chat-security">
+           BB84 Secured
+        </div>
+
+      </div>
 
       <ChatWindow
-        title="Alice Chat"
+        title=""
         messages={simulation.messages}
-        emptyText="No messages yet"
+        emptyText="Waiting for secure quantum message..."
       />
 
       <MessageComposer

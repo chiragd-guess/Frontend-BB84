@@ -1,131 +1,670 @@
 /* ============================================================
-   COMPONENTS — App Shell, Layout Wrappers & All Components
-   No keyframes. No media queries.
+   COMPONENTS
+   PART 1
    ============================================================ */
 
-/* ---- App Shell ---- */
-.app-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
+
+/* ---------------- APP ---------------- */
+
+.app-shell{
+
+  min-height:100vh;
+
+  width:100%;
+
+  max-width:none;
+
+  margin:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  background:transparent;
+
+  border:none;
+
 }
 
-/* ---- Top Bar ---- */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  border-bottom: 1px solid;
-  padding: var(--space-md) var(--space-xl);
+
+/* ---------------- TOP BAR ---------------- */
+/* ================= THEME TOGGLE ================= */
+
+.theme-toggle {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:8px 14px;
+
+  background:transparent;
+
+  color:var(--text-primary);
+
+  border:1px solid var(--border-color);
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:11px;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+
+  transition:.2s ease;
+
 }
 
-.top-bar__brand,
-.top-bar__pills {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-md);
+
+.theme-toggle:hover {
+
+  border-color:var(--accent);
+
+  color:var(--accent);
+
+  transform:translateY(-1px);
+
 }
 
-/* ---- Body ---- */
-.body {
-  display: flex;
-  flex: 1;
-  min-width: 0;
+
+.theme-toggle__icon {
+
+  font-size:14px;
+
 }
 
-/* ---- Sidebar ---- */
-.sidebar {
-  width: var(--sidebar-width);
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  border-right: 1px solid;
-  padding: var(--space-lg);
-  overflow-y: auto;
+
+.theme-toggle__text {
+
+  font-size:10px;
+
 }
 
-/* ---- Navbar ---- */
-.navbar ul {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+/* ================= DASHBOARD HEADER ================= */
+
+.dashboard-header{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  width:100%;
+
 }
 
-.nav-link {
-  display: block;
-  padding: var(--space-sm);
-  border: 1px solid transparent;
-  opacity: 0.75;
+
+.dashboard-header__left{
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
 }
 
-.nav-link:hover {
-  opacity: 1;
+
+.dashboard-header__right{
+
+  display:flex;
+  align-items:center;
+  gap:16px;
+
+  margin-left:auto;
+
 }
 
-.nav-link--active {
-  border: 1px solid;
-  font-weight: bold;
-  opacity: 1;
+
+.dashboard-header__status{
+
+  display:flex;
+  align-items:center;
+
 }
 
-/* ---- Quick Controls ---- */
-.quick-controls {
-  border: 1px solid;
-  padding: var(--space-md);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+
+
+.top-bar__brand{
+
+  display:flex;
+  align-items:center;
+  gap:16px;
+
 }
+
+
+.top-bar__brand h1{
+
+  font-size:24px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+
+}
+
+
+.top-bar__brand small{
+
+  display:block;
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:10px;
+
+  letter-spacing:.22em;
+
+  text-transform:uppercase;
+
+  color:var(--accent);
+
+}
+
+
+.top-bar__pills{
+
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+
+}
+
+
+/* ← ADD THE NEW CSS HERE */
+
+/* ================================
+   DASHBOARD HEADER LEFT SECTION
+================================ */
+
+.dashboard-header__left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+
+/* ================================
+   TITLE GROUP
+================================ */
+
+.dashboard-header__title-group{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+
+/* ================================
+   LOGO CONTAINER
+================================ */
+
+.dashboard-header__logo{
+  position:relative;
+
+  width:180px;
+  height:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  overflow:hidden;
+  border-radius:14px;
+
+  flex-shrink:0;
+}
+
+
+/* ================================
+   LOGO IMAGE
+================================ */
+
+.dashboard-header__logo-image{
+  width:180px;
+  height:auto;
+
+  display:block;
+
+  position:relative;
+  z-index:1;
+
+  filter:
+    drop-shadow(0 0 8px rgba(237,125,39,.65))
+    drop-shadow(0 0 20px rgba(237,125,39,.35));
+
+  animation: quantumGlow 4s ease-in-out infinite;
+}
+
+
+/* ================================
+   QUANTUM LIGHT SWEEP
+================================ */
+
+.dashboard-header__logo::after{
+  content:"";
+
+  position:absolute;
+
+  top:-20%;
+  left:-60%;
+
+  width:35%;
+  height:140%;
+
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.45),
+    transparent
+  );
+
+  transform:rotate(25deg);
+
+  z-index:2;
+  pointer-events:none;
+
+  animation: quantumSweep 5s ease-in-out infinite;
+}
+
+
+/* ================================
+   TITLE TEXT
+================================ */
+
+.dashboard-header__title{
+  margin:0;
+
+  line-height:1.1;
+
+  font-weight:700;
+}
+
+
+.dashboard-header__subtitle{
+  margin:4px 0 0;
+
+  line-height:1;
+
+  opacity:.75;
+}
+
+
+/* ================================
+   QUANTUM GLOW ANIMATION
+================================ */
+
+@keyframes quantumGlow{
+
+  0%,100%{
+    filter:
+      drop-shadow(0 0 7px rgba(237,125,39,.55))
+      drop-shadow(0 0 18px rgba(237,125,39,.3));
+  }
+
+
+  50%{
+    filter:
+      drop-shadow(0 0 13px rgba(255,170,70,.75))
+      drop-shadow(0 0 30px rgba(237,125,39,.45));
+  }
+
+}
+
+
+/* ================================
+   PHOTON SWEEP ANIMATION
+================================ */
+
+@keyframes quantumSweep{
+
+  0%{
+    left:-60%;
+    opacity:0;
+  }
+
+
+  20%{
+    opacity:.8;
+  }
+
+
+  45%{
+    left:130%;
+    opacity:0;
+  }
+
+
+  100%{
+    left:130%;
+    opacity:0;
+  }
+
+}
+
+/* ---------------- BODY ---------------- */
+
+.body{
+
+  flex:1;
+
+  display:flex;
+
+  min-width:0;
+
+}
+
+
+/* ---------------- SIDEBAR ---------------- */
+
+.sidebar{
+
+  width:var(--sidebar-width);
+
+  background:var(--bg-panel);
+
+  border-right:1px solid var(--border-color);
+
+  padding:24px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:24px;
+
+}
+
+
+/* ---------------- NAV ---------------- */
+
+.navbar ul{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+}
+
+
+.nav-link{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:12px 14px;
+
+  color:var(--text-secondary);
+
+  border:1px solid transparent;
+
+  transition:.18s;
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:12px;
+
+  letter-spacing:.06em;
+
+  text-transform:uppercase;
+
+}
+
+
+.nav-link:hover{
+
+  color:var(--text-primary);
+
+  border-color:var(--border-color);
+
+  background:rgba(255,255,255,.03);
+
+}
+
+
+.nav-link--active{
+
+  background:rgba(217,100,30,.08);
+
+  color:var(--accent);
+
+  border-color:var(--accent);
+
+}
+
+
+/* ---------------- QUICK CONTROLS ---------------- */
+
+.quick-controls{
+
+  background:var(--accent-soft);
+
+  border:1px solid var(--border-color);
+
+  padding:14px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+  backdrop-filter:blur(2px);
+
+  box-shadow:var(--shadow);
+
+}
+
+
+.quick-controls h3{
+
+  font-size:13px;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
 
 .quick-controls__row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  border-bottom: 1px solid;
-  padding: var(--space-xs) 0;
+
+  display:grid;
+
+  grid-template-columns: minmax(0,1fr) 60px 28px;
+
+  align-items:center;
+
+  gap:6px;
+
+  width:100%;
+
 }
 
-/* ---- Main Content ---- */
-.main-content {
-  flex: 1;
-  min-width: 0;
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-  width: 100%;
+.quick-controls__row label {
+  white-space: nowrap;
 }
 
-/* ---- Panels Row (Alice / Quantum Channel / Bob) ---- */
-.panels-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: var(--space-xl);
+.noise-slider {
+
+  width:60px;
+
+  min-width:0px;
+
 }
+
+.quick-controls__row span {
+  text-align: right;
+  white-space: nowrap;
+}
+
+
+.quick-controls__row:last-child{
+
+  border-bottom:none;
+
+}
+
+
+/* ---------------- MAIN ---------------- */
+
+.main-content{
+
+  flex:1;
+
+  max-width:var(--content-max-width);
+
+  margin:auto;
+
+  padding:24px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+
+}
+
+
+/* ---------------- GRID ---------------- */
+
+.panels-row{
+
+  display:grid;
+
+  grid-template-columns:
+
+      minmax(0,1fr)
+
+      minmax(0,1.45fr)
+
+      minmax(0,1fr);
+
+  gap:28px;
+
+}
+
+
+.bottom-row{
+
+  display:grid;
+
+  grid-template-columns:
+
+      repeat(3,minmax(0,1fr));
+
+  gap:24px;
+
+}
+
+
+/* ---------------- COMMON PANELS ---------------- */
+
+.alice-panel,
+.quantum-channel-panel,
+.bob-panel,
+.analytics-chart,
+.session-summary,
+.quantum-statistics,
+.photon-chart,
+.status-card,
+.message-composer,
+.chat-window,
+.key-exchange-visualizer{
+
+  background:var(--card-bg);
+
+  border:1px solid var(--border-color);
+
+  box-shadow:var(--shadow);
+
+  backdrop-filter:blur(2px);
+
+}
+
+
+/* ---------------- HEADERS ---------------- */
+
+.panel-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding-bottom:14px;
+
+  margin-bottom:18px;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+
+/* ---------------- STATUS PILL ---------------- */
+
+.status-pill{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:6px 12px;
+
+  border:1px solid var(--border-color);
+
+  background:rgba(255,255,255,.03);
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:10px;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+
+.status-pill::before{
+
+  content:"";
+
+  width:7px;
+
+  height:7px;
+
+  border-radius:50%;
+
+  box-shadow:0 0 8px var(--accent);
+
+}
+
 
 /* ---- Alice / Quantum Channel / Bob Panels ---- */
 .alice-panel,
 .quantum-channel-panel,
 .bob-panel {
-  border: 1px solid;
-  padding: var(--space-lg);
+  border:1px solid var(--border-color);
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 10px;
   min-width: 0;
 }
 
 /* ---- Message Composer ---- */
 .message-composer {
-  border: 1px solid;
+  border:1px solid var(--border-color);
   padding: var(--space-sm);
   display: flex;
   flex-direction: column;
@@ -134,6 +673,152 @@
 
 .message-composer textarea {
   width: 100%;
+}
+/* ==========================================
+   CHAT HEADER
+========================================== */
+
+.chat-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:0 0 14px;
+
+  margin-bottom:16px;
+
+  border-bottom:1px solid var(--border-color);
+
+}
+
+.chat-user{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.chat-avatar{
+
+  width:46px;
+
+  height:46px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:22px;
+
+  background:rgba(217,100,30,.12);
+
+  border:1px solid var(--border-color);
+
+  box-shadow:0 0 18px rgba(217,100,30,.12);
+
+}
+
+.chat-user-info{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:3px;
+
+}
+
+.chat-user-info h3{
+
+  margin:0;
+
+  font-size:15px;
+
+  font-weight:600;
+
+  color:var(--text-primary);
+
+}
+
+.chat-status{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  font-size:12px;
+
+  color:var(--text-secondary);
+
+}
+
+.chat-status-dot{
+
+  width:8px;
+
+  height:8px;
+
+  border-radius:50%;
+
+  background:#22c55e;
+
+  box-shadow:0 0 10px #22c55e;
+
+  animation:onlinePulse 2s infinite;
+
+}
+
+.chat-security{
+
+  padding:6px 10px;
+
+  border:1px solid rgba(217,100,30,.25);
+
+  border-radius:999px;
+
+  background:var(--accent-soft);
+
+  color:var(--accent);
+
+  font-size:10px;
+
+  font-family:"JetBrains Mono",monospace;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+@keyframes onlinePulse{
+
+  0%{
+      transform:scale(1);
+      opacity:1;
+  }
+
+  50%{
+      transform:scale(1.35);
+      opacity:.55;
+  }
+
+  100%{
+      transform:scale(1);
+      opacity:1;
+  }
+
 }
 
 /* ---- Chat Window ---- */
@@ -144,17 +829,30 @@
 }
 
 .chat-window__messages {
-  max-height: 200px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  min-height:260px;
+
+  display:flex;
+  flex-direction:column;
+
+  justify-content:center;
+
+  gap:12px;
+
+  padding:14px;
 }
 
 .chat-window__bubble {
-  border: 1px solid;
-  padding: var(--space-sm);
-  margin-top: var(--space-sm);
+
+  border:1px solid var(--border-color);
+
+  padding:10px 14px;
+
+  margin-top:8px;
+
+  max-width:80%;
+
+  line-height:1.4;
+
 }
 
 .chat-window__bubble--alice {
@@ -167,43 +865,78 @@
 }
 
 .chat-window__empty {
-  opacity: 0.5;
-  font-style: italic;
+
+  opacity:.55;
+
+  font-style:italic;
+
+  text-align:center;
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:12px;
+
 }
 
 .chat-window__system {
-  margin: 16px 0;
-  padding: 14px;
-  border-radius: 10px;
-  border: 1px solid #f59e0b;
-  background: #fff7ed;
-  color: #92400e;
-  text-align: center;
-  white-space: pre-line;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
 
+
+  margin:16px 0;
+
+
+  padding:14px;
+
+
+  border-radius:10px;
+
+
+  border:
+
+  1px solid var(--warning);
+
+
+
+  background:
+
+  var(--warning-bg);
+
+
+
+  color:
+
+  var(--warning-text);
+
+
+
+  text-align:center;
+
+
+  white-space:pre-line;
+
+
+  font-size:.9rem;
+
+
+  font-weight:500;
+
+}
 /* ---- Progress Timeline ---- */
-.progress-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  list-style: none;
-  padding: 0;
+.progress-step__content span {
+  font-size: 8px;
+  opacity: 0.65;
 }
 
 .progress-timeline__step {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 18px;
-  padding: 18px 0;
+  gap: 6px;
+  padding: 0px 0;
 }
 
 .progress-step__icon {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
   border: 1px solid;
   border-radius: 50%;
   display: flex;
@@ -242,8 +975,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 30px;
+  gap: 14px;
+  padding: 18px;
   position: relative;
   border: 1px solid;
 }
@@ -259,11 +992,11 @@
 
 .photon-lane {
   flex: 1;
-  height: 70px;
+  height: 50px;
   position: relative;
   overflow: hidden;
-  border-top: 1px dashed;
-  border-bottom: 1px dashed;
+  border-top:1px solid var(--border-color);
+  border-bottom:1px solid var(--border-color);
 }
 
 /* ---- Quantum States (travel through photon-lane) ---- */
@@ -440,4 +1173,193 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+}
+
+
+.theme-button{
+
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:11px;
+
+  letter-spacing:.1em;
+
+  text-transform:uppercase;
+
+
+  padding:9px 18px;
+
+
+  border:
+
+  1px solid var(--border-color);
+
+
+  background:transparent;
+
+
+  color:var(--text-secondary);
+
+
+  cursor:pointer;
+
+
+  transition:.2s;
+
+
+}
+
+
+
+.theme-button:hover{
+
+
+  border-color:var(--accent);
+
+  color:var(--accent);
+
+
+}
+.noise-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 70px;
+  height: 2px;
+
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  margin-left:-7px;
+}
+
+.noise-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--border-color);
+}
+
+.noise-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.noise-slider::-moz-range-track {
+  height: 2px;
+  background: var(--border-color);
+}
+
+.noise-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+}
+
+
+
+.quick-controls p,
+.quantum-statistics p,
+.photon-chart p{
+
+    font-family:"Space Grotesk",sans-serif;
+    font-weight:600;
+    color:var(--text-primary);
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-size:13px;
+
+}
+
+
+.quick-controls label{
+
+    font-family:"JetBrains Mono",monospace;
+    color:var(--text-secondary);
+    font-size:12px;
+    letter-spacing:.08em;
+
+}
+
+
+button{
+
+  font-family:"JetBrains Mono",monospace;
+
+  color:var(--text-primary);
+
+}
+
+
+button:not(.theme-button){
+
+  background:var(--accent);
+  border-color:var(--accent);
+  color:white;
+
+}
+
+.dashboard-header__title{
+
+  font-family:"Orbitron",sans-serif;
+
+  font-size:26px;
+
+  font-weight:700;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+
+.dashboard-header__subtitle{
+
+  font-family:"JetBrains Mono",monospace;
+
+  font-size:11px;
+
+  letter-spacing:.15em;
+
+  color:var(--accent);
+
+  text-transform:uppercase;
+
+}
+
+.quick-controls p,
+.quantum-statistics p,
+.photon-chart p,
+.session-summary p{
+
+  font-family:"Orbitron",sans-serif;
+
+  font-size:12px;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+
+}
+
+body{
+
+  letter-spacing:.01em;
+
+}
+
+
+p{
+
+  font-family:"Inter",sans-serif;
+
 }
