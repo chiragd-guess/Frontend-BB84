@@ -61,5 +61,5 @@ def simulate(
         eve_interception=eve_interception
 
     )
-
+    return results
 
