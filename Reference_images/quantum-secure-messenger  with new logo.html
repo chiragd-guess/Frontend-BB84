@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QKDECODE — Quantum Secure Messenger</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSI1OCA1NCA5NTQgOTU0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB4PSI1OCIgeT0iNTQiIHdpZHRoPSI5NTQiIGhlaWdodD0iOTU0IiByeD0iMTMwIiBmaWxsPSIjMTQxNDE0Ii8+CjxnIGlkPSJCbG9jaCIgdHJhbnNmb3JtPSJtYXRyaXgoMC44NzE5NDYsMCwwLDAuODcxOTQ2LC04NjcuNTEzOTM2LC01MDcuMDgxNDU5KSI+CiAgICAgICAgICAgIDxnIGlkPSJCYWNrQm9yZGVyIj4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KC0xLDAsMCwtMSwzNTg4LjYwNjM1NywxODk4LjE0NTc5NykiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNTExLjU4OSw3MDkuOTIzTDE5MjYuNTQ2LDk0NC40NDhMMjQ0OC41NzEsNzA4LjMzMyIgc3R5bGU9ImZpbGw6d2hpdGU7ZmlsbC1vcGFjaXR5OjA7c3Ryb2tlOnJnYigyMTcsMTAwLDMwKTtzdHJva2Utd2lkdGg6NDcuNzlweDsiLz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDIuODY0MTQsMi45NDI0MSwtMi45NDg1OTcsMi44NzAxNjMsMTYwOC41MjYyMjMsMTE4OS44MTI0NjMpIj4KICAgICAgICAgICAgICAgICAgICA8cmVjdCB4PSItODQiIHk9Ii04NCIgd2lkdGg9IjE2OCIgaGVpZ2h0PSIxNjgiIHN0eWxlPSJmaWxsOnJnYigyMzUsMjM1LDIzNSk7ZmlsbC1vcGFjaXR5OjA7c3Ryb2tlOnJnYigyMzcsMTI1LDM5KTtzdHJva2Utd2lkdGg6MTBweDtzdHJva2UtbWl0ZXJsaW1pdDo0OyIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIGlkPSJBcnJvdyIgdHJhbnNmb3JtPSJtYXRyaXgoMC45NTAyNDUsMCwwLDAuOTUwMjQ1LDgwLjAzMjc0MSw1OS4xOTk1MDMpIj4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KC0yLjA0MjQ5MywxLjE3OTIzNCwtMS4xNzkyMzQsLTIuMDQyNDkzLDcxMDUuNDUwMTUyLDIxNDYuNTEwOTg3KSI+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTE4MTAuNzMxLDEzOTIuMTdMMTgxOC40MTEsMTQwNy41MjlMMTgwMy4wNTIsMTQwNy41MjlMMTgxMC43MzEsMTM5Mi4xN1oiIHN0eWxlPSJmaWxsOnJnYigyNTUsMjE0LDE4Myk7Ii8+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTE4MTAuNzMxLDEzOTIuMTdMMTgxOC40MTEsMTQwNy41MjlMMTgwMy4wNTIsMTQwNy41MjlMMTgxMC43MzEsMTM5Mi4xN1pNMTgxMC43MzEsMTM5NS41MDdMMTgwNS40NjcsMTQwNi4wMzdMMTgxNS45OTYsMTQwNi4wMzdMMTgxMC43MzEsMTM5NS41MDdaIiBzdHlsZT0iZmlsbDpyZ2IoOTYsNDIsMCk7ZmlsbC1vcGFjaXR5OjA7Ii8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09Im1hdHJpeCgwLjk5NDU4MSwtMC4wNDA4NjgsLTAuMDQwODY4LDAuOTU2MzUyLDU3LjM0MjI4NCwxMTcuNjY5OTExKSI+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTE2MDguNTI2LDExODkuODEyTDE3NjIuNzE0LDE0MzIuMTQ3IiBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTpyZ2IoMjU1LDIxNCwxODMpO3N0cm9rZS13aWR0aDoxMi4zN3B4O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxLjU7Ii8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC4wNjAzNTUsLTAuNDU0Mjc2LDAuNzAzNjYxLDAuMTYxMzkzLDcyNS44NDI1MTEsMTQ5NS4yMTEwNTQpIj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNTE3LjY4NSwxMTk1LjQ0M0wxMjI4LjU1NSwxMTcyLjY3NiIgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6cmdiKDI1NSwyMTQsMTgzKTtzdHJva2Utd2lkdGg6MTlweDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MS41OyIvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIGlkPSJDb3JlIj4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuNzA3MTA3LDAuNzA3MTA3LC0wLjcwNzEwNywwLjcwNzEwNywyMzQ3LjI4NDAzMSwtMjEzOS44MTg1ODQpIj4KICAgICAgICAgICAgICAgICAgICA8cmVjdCB4PSIxODA4LjczMyIgeT0iMjg1My45MjYiIHdpZHRoPSI0Ni41ODIiIGhlaWdodD0iNDUuNzE5IiBzdHlsZT0iZmlsbDpyZ2IoMjM1LDIzNSwyMzUpOyIvPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xODAxLjgwNCwyODQ2Ljk5N0wxODYyLjI0NCwyODQ2Ljk5N0wxODYyLjI0NCwyOTA2LjU3NEwxODAxLjgwNCwyOTA2LjU3NEwxODAxLjgwNCwyODQ2Ljk5N1pNMTg1NS4zMTUsMjg1My45MjZMMTgwOC43MzMsMjg1My45MjZMMTgwOC43MzMsMjg5OS42NDVMMTg1NS4zMTUsMjg5OS42NDVMMTg1NS4zMTUsMjg1My45MjZaIiBzdHlsZT0iZmlsbDpyZ2IoMjM3LDEyNSwzOSk7Ii8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09Im1hdHJpeCgwLjU1MjcxOSwwLjU1MjcxOSwtMC41MzgwMTcsMC41MzgwMTcsMTYwOC41MjYyMjMsMTE4OS44MTI0NjMpIj4KICAgICAgICAgICAgICAgICAgICA8cmVjdCB4PSItODQiIHk9Ii04NCIgd2lkdGg9IjE2OCIgaGVpZ2h0PSIxNjgiIHN0eWxlPSJmaWxsOnJnYigyMzcsMTI1LDM5KTtmaWxsLW9wYWNpdHk6MC40NTsiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOTMuODY4LDk0LjEzOEwtOTMuODY4LDk0LjEzOEwtOTMuODY4LC05NC4xMzhMOTMuODY4LC05NC4xMzhMOTMuODY4LDk0LjEzOFpNODQsLTg0TC04NCwtODRMLTg0LDg0TDg0LDg0TDg0LC04NFoiIHN0eWxlPSJmaWxsOnJnYigyMjcsMTgyLDE3Myk7Ii8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgaWQ9IkF4ZXMiIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsNS41MzEzMjksMCkiPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC45OTQ1ODEsLTAuMDQwODY4LC0wLjA0MDg2OCwwLjk1NjM1Miw0OC41NTAxNTcsMTE3LjY2OTkxMSkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNDk0Ljk5LDExODQuOTYxTDEyNzEuODMsMTE3NS40MjQiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOnJnYigyNTUsMjE0LDE4Myk7c3Ryb2tlLXdpZHRoOjExLjc2cHg7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNTsiLz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk0NTgxLC0wLjA0MDg2OCwtMC4wNDA4NjgsMC45NTYzNTIsNTAyLjA3NzM5NywxMTcuNjY5OTExKSI+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTE0OTQuOTksMTE4NC45NjFMMTI3MS44MywxMTc1LjQyNCIgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6cmdiKDI1NSwyMTQsMTgzKTtzdHJva2Utd2lkdGg6MTEuNzZweDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MS41OyIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC4wNDA4NjgsMC45OTQ1ODEsLTAuOTU2MzUyLC0wLjA0MDg2OCwyNjc2LjE5NzEwNiw0OS4xMDc4NjYpIj4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTUyNy4yNzYsMTE4Ni4zNEwxMzEzLjk5MywxMTc3LjIyNiIgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6cmdiKDI1NSwyMTQsMTgzKTtzdHJva2Utd2lkdGg6MTEuNzZweDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MS41OyIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC4wNDA4NjgsMC45OTQ1ODEsLTAuOTU2MzUyLC0wLjA0MDg2OCwyNjc2LjE5NzEwNiwtMzU2Ljg5OTgwNykiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNDgyLjU2MywxMTg0LjQzTDEyNzEuODMsMTE3NS40MjQiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOnJnYigyNTUsMjE0LDE4Myk7c3Ryb2tlLXdpZHRoOjExLjc2cHg7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNTsiLz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDYwMzU1LC0wLjQ1NDI3NiwwLjcwMzY2MSwwLjE2MTM5Myw2NzEuMjY3NDgxLDE2ODYuMzI0Njg0KSI+CiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTEzNzIuMTY4LDExODMuOTg0TDEwODQuODc4LDExNjEuMzYyIiBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTpyZ2IoMjU1LDIxNCwxODMpO3N0cm9rZS13aWR0aDoxOXB4O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxLjU7Ii8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoNC4xNjY2NjcsMCwwLDQuMTY2NjY3LDE2MDguNTI2MjIzLDExODkuODEyNDYzKSI+CiAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMTA1IiBzdHlsZT0iZmlsbDp1cmwoI19SYWRpYWxGYXYpOyIvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDEsLTAsLTAsMSwtMzcxLjU1MzkxMSw0ODEuNDc5MTMpIj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNTExLjU4OSw3MDkuOTIzTDE5MjYuNTQ2LDk0NC40NDhMMjQ0OC41NzEsNzA4LjMzMyIgc3R5bGU9ImZpbGw6d2hpdGU7ZmlsbC1vcGFjaXR5OjA7c3Ryb2tlOnJnYigyMzcsMTI1LDM5KTtzdHJva2Utd2lkdGg6NDcuNzlweDsiLz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KPGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJfUmFkaWFsRmF2IiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEwNSwwLDAsMTA1LDAsMCkiPjxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6cmdiKDIzNywxMjUsMzkpO3N0b3Atb3BhY2l0eTowLjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOnJnYigyMzcsMTI1LDM5KTtzdG9wLW9wYWNpdHk6MCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPgo8L3N2Zz4=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ---- brief palette ---- */
+    --primary-1:#D9641E;
+    --primary-2:#ED7D27;
+    --white-1:#ECE2D2;
+    --white-2:#F7F7F7;
+    --white-3:#FFF8EC;
+    --black-1:#41423A;
+    --black-2:#141414;
+
+    --font-display:'JetBrains Mono', monospace;
+    --font-brand:'Press Start 2P', monospace;
+    --font-body:'Inter', sans-serif;
+
+    --radius-s:5px;
+    --radius-m:8px;
+    --radius-l:13px;
+    --gap:12px;
+  }
+
+  html[data-theme="dark"]{
+    --bg:var(--black-2);
+    --surface:#1c1c17;
+    --surface-2:#232319;
+    --card-border:rgba(217,100,30,0.28);
+    --text-hi:var(--white-2);
+    --text-mid:var(--white-1);
+    --text-lo:rgba(236,226,210,0.5);
+    --track:rgba(236,226,210,0.12);
+    --scrim:rgba(20,20,20,0.7);
+    --logo-bg:var(--black-2);
+  }
+  html[data-theme="light"]{
+    --bg:var(--white-3);
+    --surface:var(--white-2);
+    --surface-2:#ffffff;
+    --card-border:rgba(65,66,58,0.16);
+    --text-hi:var(--black-2);
+    --text-mid:var(--black-1);
+    --text-lo:rgba(65,66,58,0.55);
+    --track:rgba(65,66,58,0.12);
+    --scrim:rgba(255,248,236,0.75);
+    --logo-bg:#ffffff;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-hi);
+    font-family:var(--font-body);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--track) 1px, transparent 0);
+    background-size:22px 22px;
+    transition:background-color .35s ease, color .35s ease;
+  }
+
+  ::selection{ background:var(--primary-1); color:var(--white-2); }
+
+  button{ font-family:inherit; cursor:pointer; }
+  input,textarea{ font-family:inherit; }
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:10px 18px;
+    background:linear-gradient(180deg, var(--surface), var(--surface-2));
+    border-bottom:1px solid var(--card-border);
+    position:relative;
+    z-index:20;
+    flex:0 0 auto;
+  }
+  .topbar-left{ display:flex; align-items:center; gap:14px; min-width:0; }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-mark{
+    width:36px; height:36px; border-radius:7px;
+    background:var(--logo-bg);
+    border:1px solid var(--card-border);
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+    box-shadow:0 0 0 1px rgba(217,100,30,0.4), 0 4px 14px rgba(217,100,30,0.25);
+    overflow:hidden;
+    transition:background-color .35s ease;
+  }
+  .brand-mark svg{ width:25px; height:25px; }
+  .logo-icon{ display:none; }
+  html[data-theme="dark"] .logo-icon-dark{ display:block; }
+  html[data-theme="light"] .logo-icon-light{ display:block; }
+  .brand-text{ font-family:var(--font-brand); font-size:9px; letter-spacing:.5px; color:var(--text-hi); line-height:1; }
+
+  .drawer-toggle{
+    display:flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid var(--card-border);
+    color:var(--text-mid); border-radius:999px; padding:7px 12px 7px 10px;
+    font-family:var(--font-display); font-size:11px; letter-spacing:.5px; text-transform:uppercase;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .drawer-toggle:hover{ border-color:var(--primary-1); color:var(--text-hi); background:rgba(217,100,30,0.08); }
+  .drawer-toggle .chev{ width:9px; height:9px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(45deg); transition:transform .25s ease; }
+  .drawer-toggle.open .chev{ transform:rotate(-135deg); }
+
+  .topbar-title{ text-align:left; min-width:0; }
+  .topbar-title h1{
+    margin:0; font-family:var(--font-display); font-weight:700;
+    font-size:15px; letter-spacing:1.5px; color:var(--text-hi);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .topbar-title p{
+    margin:1px 0 0; font-family:var(--font-display); font-size:9.5px; letter-spacing:1.6px;
+    color:var(--text-lo); text-transform:uppercase; white-space:nowrap;
+  }
+
+  .topbar-right{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+  .status-pill{
+    font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:7px 12px; border-radius:999px; border:1px solid var(--card-border);
+    color:var(--text-mid); white-space:nowrap; display:flex; align-items:center; gap:7px;
+  }
+  .status-pill .dot{ width:7px; height:7px; border-radius:50%; background:var(--text-lo); }
+  .status-pill.running{ color:var(--primary-2); border-color:var(--primary-2); }
+  .status-pill.running .dot{ background:var(--primary-2); animation:pulse 1s infinite; }
+  .status-pill.secured{ color:var(--white-2); background:linear-gradient(90deg,var(--primary-1),var(--primary-2)); border-color:transparent; }
+  .status-pill.secured .dot{ background:var(--white-2); }
+  .status-pill.alert{ color:var(--primary-1); border-color:var(--primary-1); animation:alertblink 1s infinite; }
+  .status-pill.alert .dot{ background:var(--primary-1); }
+
+  .btn-reset{
+    font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:8px 14px; border-radius:7px; border:none; color:var(--white-2);
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    box-shadow:0 3px 10px rgba(217,100,30,0.3);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-reset:hover{ transform:translateY(-1px); box-shadow:0 5px 14px rgba(217,100,30,0.4); }
+  .btn-reset:active{ transform:translateY(0); }
+
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
+  @keyframes alertblink{ 0%,100%{opacity:1;} 50%{opacity:.45;} }
+
+  /* ============ DROPDOWN DRAWER ============ */
+  .drawer-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .32s cubic-bezier(.4,0,.2,1);
+    background:var(--surface-2);
+    border-bottom:1px solid transparent;
+    flex:0 0 auto;
+    position:relative;
+    z-index:19;
+  }
+  .drawer-wrap.open{ max-height:200px; border-bottom:1px solid var(--card-border); }
+  .drawer-inner{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    gap:16px; padding:14px 18px;
+  }
+  .nav-group{ display:flex; gap:6px; }
+  .nav-btn{
+    background:transparent; border:1px solid transparent; color:var(--text-lo);
+    font-family:var(--font-display); font-size:11px; letter-spacing:1px; text-transform:uppercase;
+    padding:8px 14px; border-radius:7px; transition:all .18s ease;
+  }
+  .nav-btn:hover{ color:var(--text-hi); }
+  .nav-btn.active{ color:var(--white-2); background:linear-gradient(90deg,var(--primary-1),var(--primary-2)); }
+
+  .controls-group{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .control-item{ display:flex; align-items:center; gap:9px; }
+  .control-label{ font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--text-lo); }
+  .control-value{ font-family:var(--font-display); font-size:11px; color:var(--text-hi); min-width:30px; }
+
+  input[type="range"]{
+    -webkit-appearance:none; width:110px; height:4px; border-radius:2px;
+    background:var(--track); outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
+    background:linear-gradient(135deg,var(--primary-2),var(--primary-1));
+    border:2px solid var(--surface-2); cursor:pointer;
+    box-shadow:0 0 0 1px var(--primary-1);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:15px; height:15px; border-radius:50%; border:2px solid var(--surface-2);
+    background:linear-gradient(135deg,var(--primary-2),var(--primary-1)); cursor:pointer;
+  }
+
+  .toggle{
+    width:38px; height:20px; border-radius:999px; background:var(--track);
+    position:relative; border:1px solid var(--card-border); transition:background .2s ease;
+    flex:0 0 auto;
+  }
+  .toggle .knob{
+    position:absolute; top:1px; left:1px; width:16px; height:16px; border-radius:50%;
+    background:var(--text-lo); transition:transform .2s ease, background .2s ease;
+  }
+  .toggle.on{ background:rgba(217,100,30,0.35); border-color:var(--primary-1); }
+  .toggle.on .knob{ transform:translateX(18px); background:var(--primary-2); }
+
+  .btn-ghost{
+    font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:8px 14px; border-radius:7px; border:1px solid var(--card-border);
+    background:transparent; color:var(--text-mid); transition:all .18s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--primary-1); color:var(--text-hi); }
+
+  .btn-run{
+    font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:9px 16px; border-radius:7px; border:none; color:var(--white-2);
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    box-shadow:0 3px 10px rgba(217,100,30,0.3);
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  .btn-run:hover{ transform:translateY(-1px); }
+  .btn-run:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+
+  /* ============ MAIN ============ */
+  main{ flex:1; min-height:0; display:flex; flex-direction:column; padding:var(--gap); gap:var(--gap); }
+
+  .panel-view{ display:none; flex:1; min-height:0; }
+  .panel-view.active{ display:flex; flex-direction:column; }
+
+  /* Dashboard */
+  #panel-dashboard{ display:none; flex-direction:column; gap:var(--gap); min-height:0; }
+  #panel-dashboard.active{ display:flex; }
+  .dash-grid{
+    flex:1; min-height:0; display:grid;
+    grid-template-columns: 0.85fr 1.3fr 0.85fr;
+    gap:var(--gap);
+  }
+
+  .card{
+    background:var(--surface); border:1px solid var(--card-border); border-radius:var(--radius-l);
+    display:flex; flex-direction:column; min-height:0; padding:14px;
+  }
+
+  /* Person card (Alice/Bob) */
+  .person-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:12px; border-bottom:1px solid var(--card-border); margin-bottom:12px; }
+  .person-id{ display:flex; align-items:center; gap:10px; }
+  .avatar{
+    width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--white-2);
+    background:linear-gradient(135deg,var(--primary-2),var(--primary-1));
+    flex:0 0 auto;
+  }
+  .avatar.bob{ background:linear-gradient(135deg,var(--black-1),#2a2b23); border:1px solid var(--primary-1); color:var(--primary-2); }
+  html[data-theme="light"] .avatar.bob{ background:linear-gradient(135deg,var(--white-1), var(--white-2)); color:var(--primary-1); }
+  .person-meta .pname{ font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--text-hi); letter-spacing:.5px; }
+  .person-meta .pstatus{ display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text-lo); margin-top:2px; }
+  .person-meta .pstatus .dot{ width:6px; height:6px; border-radius:50%; background:#7fbf6a; }
+
+  .bb84-badge{
+    font-family:var(--font-display); font-size:9.5px; letter-spacing:.8px; text-transform:uppercase;
+    padding:5px 9px; border-radius:5px; border:1px solid var(--card-border); color:var(--text-lo);
+    white-space:nowrap; transition:all .3s ease;
+  }
+  .bb84-badge.live{ color:var(--white-2); background:linear-gradient(90deg,var(--primary-1),var(--primary-2)); border-color:transparent; }
+
+  /* mini session stats inside person cards */
+  .session-stats{ display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+  .stat-row{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    background:var(--surface-2); border:1px solid var(--card-border); border-radius:var(--radius-s);
+    padding:9px 11px;
+  }
+  .stat-row .k{ font-family:var(--font-display); font-size:10px; letter-spacing:.6px; text-transform:uppercase; color:var(--text-lo); }
+  .stat-row .v{ font-family:var(--font-display); font-size:12px; color:var(--text-hi); font-weight:700; transition:color .2s ease; }
+  .stat-row .v.hot{ color:var(--primary-2); }
+
+  .card-spacer{ flex:1; min-height:8px; }
+
+  .compose-label{ font-family:var(--font-display); font-size:10px; letter-spacing:.8px; text-transform:uppercase; color:var(--text-lo); margin:0 0 6px; }
+  .compose-box{ border:1px solid var(--card-border); border-radius:var(--radius-m); background:var(--surface-2); padding:8px 9px; display:flex; flex-direction:column; gap:6px; }
+  .compose-box textarea{
+    resize:none; border:none; outline:none; background:transparent; color:var(--text-hi);
+    font-size:12.5px; height:44px; font-family:var(--font-body);
+  }
+  .compose-box textarea::placeholder{ color:var(--text-lo); }
+  .compose-box textarea:disabled{ color:var(--text-lo); }
+  .compose-foot{ display:flex; align-items:center; justify-content:space-between; }
+  .char-count{ font-family:var(--font-display); font-size:10px; color:var(--text-lo); }
+  .btn-send{
+    font-family:var(--font-display); font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:9px; border:none; border-radius:7px; color:var(--white-2); width:100%; margin-top:8px;
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .btn-send:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn-send:not(:disabled):hover{ transform:translateY(-1px); }
+
+  /* Center combined Chat card */
+  .chat-card{ padding:14px 16px; }
+  .chat-card.pulse{ box-shadow:0 0 0 1px var(--primary-1), 0 0 22px rgba(217,100,30,0.3); }
+  .chat-head{ display:flex; align-items:baseline; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid var(--card-border); margin-bottom:10px; }
+  .chat-head h2{ margin:0; font-family:var(--font-display); font-weight:700; font-size:14px; letter-spacing:.6px; color:var(--text-hi); }
+  .chat-head span{ font-size:10.5px; color:var(--text-lo); font-family:var(--font-display); letter-spacing:.5px; text-transform:uppercase; }
+
+  .chat-shared{
+    flex:1; min-height:0; background:var(--surface-2); border:1px solid var(--card-border);
+    border-radius:var(--radius-m); padding:12px; overflow-y:auto;
+    display:flex; flex-direction:column; gap:9px;
+  }
+  .chat-shared .placeholder{ margin:auto; color:var(--text-lo); font-size:12.5px; text-align:center; font-style:italic; }
+
+  .msg-row{ display:flex; flex-direction:column; max-width:74%; animation:pop .18s ease; }
+  .msg-row.alice{ align-self:flex-start; align-items:flex-start; }
+  .msg-row.bob{ align-self:flex-end; align-items:flex-end; }
+  @keyframes pop{ from{ opacity:0; transform:translateY(4px) scale(.98);} to{opacity:1; transform:none;} }
+  .msg-sender{ font-family:var(--font-display); font-size:9.5px; letter-spacing:.6px; text-transform:uppercase; color:var(--text-lo); margin-bottom:3px; padding:0 3px; }
+  .bubble{ padding:8px 11px; border-radius:8px; font-size:12.5px; line-height:1.4; word-break:break-word; }
+  .msg-row.alice .bubble{ background:var(--track); color:var(--text-hi); border-bottom-left-radius:2px; }
+  .msg-row.bob .bubble{ background:linear-gradient(135deg,var(--primary-2),var(--primary-1)); color:var(--white-2); border-bottom-right-radius:2px; }
+
+  /* ============ STAGE BAR (protocol visualization, full width) ============ */
+  .stage-bar{
+    flex:0 0 auto; background:var(--surface); border:1px solid var(--card-border); border-radius:var(--radius-l);
+    padding:14px 20px 16px;
+  }
+  .stage-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+  .stage-title{ font-family:var(--font-display); font-weight:700; font-size:12.5px; letter-spacing:.6px; color:var(--text-hi); }
+  .stage-title span{ color:var(--text-lo); font-weight:400; }
+  .stage-stats{ display:flex; gap:22px; }
+  .stage-stats .link-meta{ text-align:right; }
+  .link-meta .k{ font-family:var(--font-display); font-size:9.5px; letter-spacing:1px; color:var(--text-lo); text-transform:uppercase; }
+  .link-meta .v{ font-family:var(--font-display); font-size:13px; color:var(--text-hi); font-weight:700; }
+
+  .stage-track-row{ display:flex; align-items:flex-start; gap:14px; }
+  .link-avatar{
+    width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,var(--primary-2),var(--primary-1));
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:800;
+    font-size:12px; color:var(--white-2); flex:0 0 auto; margin-top:1px;
+  }
+  .link-avatar.bob{ background:linear-gradient(135deg,var(--black-1),#2a2b23); border:1px solid var(--primary-1); color:var(--primary-2); }
+  html[data-theme="light"] .link-avatar.bob{ background:var(--white-1); color:var(--primary-1); }
+
+  .stage-track-wrap{ position:relative; flex:1; padding-top:7px; }
+  .stage-line{ position:absolute; top:14px; left:0; right:0; height:2px; background:repeating-linear-gradient(90deg, var(--card-border) 0 6px, transparent 6px 12px); }
+  .photon{
+    position:absolute; top:14px; left:0%; width:12px; height:12px; transform:translate(-50%,-50%) rotate(45deg);
+    background:linear-gradient(135deg,var(--primary-2),var(--primary-1)); border-radius:2px;
+    box-shadow:0 0 10px 2px rgba(237,125,39,0.6);
+    transition:left .5s ease;
+    z-index:2;
+  }
+  .photon.alert{ animation:alertblink .8s infinite; }
+
+  .stage-track{ position:relative; display:flex; z-index:1; }
+  .stage-step{ flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 2px; }
+  .stage-step .node{
+    width:14px; height:14px; border-radius:50%; border:2px solid var(--card-border);
+    background:var(--surface); transition:all .25s ease;
+  }
+  .stage-step .label{ font-family:var(--font-display); font-size:9.5px; font-weight:600; color:var(--text-mid); letter-spacing:.2px; margin-top:8px; line-height:1.3; }
+  .stage-step .sub{ font-size:9px; color:var(--text-lo); margin-top:2px; line-height:1.3; min-height:11px; }
+
+  .stage-step.active .node{ border-color:var(--primary-2); background:var(--primary-2); box-shadow:0 0 0 4px rgba(237,125,39,0.18); animation:nodepulse 1s infinite; }
+  .stage-step.active .label{ color:var(--primary-2); }
+  .stage-step.done .node{ border-color:var(--primary-1); background:var(--primary-1); }
+  .stage-step.done .label{ color:var(--text-hi); }
+  .stage-step.done .sub{ color:var(--primary-2); }
+  .stage-step.alert .node{ border-color:var(--primary-1); background:var(--primary-1); animation:alertblink .8s infinite; }
+  .stage-step.alert .label, .stage-step.alert .sub{ color:var(--primary-1); }
+  @keyframes nodepulse{ 0%,100%{box-shadow:0 0 0 4px rgba(237,125,39,0.18);} 50%{box-shadow:0 0 0 7px rgba(237,125,39,0.06);} }
+
+  /* Analytics + About panels */
+  .content-card{ flex:1; min-height:0; background:var(--surface); border:1px solid var(--card-border); border-radius:var(--radius-l); padding:20px; overflow-y:auto; }
+  .content-card h2{ font-family:var(--font-display); font-size:15px; letter-spacing:.5px; margin:0 0 14px; color:var(--text-hi); }
+  .content-card p{ font-size:13.5px; line-height:1.7; color:var(--text-mid); max-width:640px; margin:0 0 12px; }
+  .content-card p strong{ color:var(--text-hi); }
+
+  table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  th{ text-align:left; font-family:var(--font-display); font-size:10px; letter-spacing:.8px; text-transform:uppercase; color:var(--text-lo); padding:8px 10px; border-bottom:1px solid var(--card-border); }
+  td{ padding:9px 10px; border-bottom:1px solid var(--card-border); color:var(--text-mid); }
+  tr:last-child td{ border-bottom:none; }
+  .tag{ font-family:var(--font-display); font-size:10px; padding:3px 7px; border-radius:4px; letter-spacing:.5px; }
+  .tag.ok{ background:rgba(217,100,30,0.16); color:var(--primary-2); }
+  .tag.bad{ background:rgba(217,100,30,0.28); color:var(--primary-1); }
+  .empty-state{ color:var(--text-lo); font-size:13px; font-style:italic; padding:20px 0; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar{ width:7px; height:7px; }
+  ::-webkit-scrollbar-thumb{ background:var(--card-border); border-radius:4px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+
+  @media (max-width: 980px){
+    .dash-grid{ grid-template-columns:1fr; grid-auto-rows:minmax(220px,auto); overflow-y:auto; }
+    .drawer-inner{ flex-direction:column; align-items:flex-start; }
+    .topbar-title p{ display:none; }
+    .stage-step .label{ writing-mode:horizontal-tb; }
+    .stage-step .sub{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= TOP BAR ================= -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="drawer-toggle" id="drawerToggle" aria-expanded="false">
+        <span class="chev"></span> Menu
+      </button>
+      <div class="brand">
+        <div class="brand-mark">
+          <svg class="logo-icon logo-icon-dark" viewBox="58 54 954 954" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g id="Bloch" transform="matrix(0.871946,0,0,0.871946,-867.513936,-507.081459)">
+            <g id="BackBorder">
+                <g transform="matrix(-1,0,0,-1,3588.606357,1898.145797)">
+                    <path d="M1511.589,709.923L1926.546,944.448L2448.571,708.333" style="fill:white;fill-opacity:0;stroke:rgb(217,100,30);stroke-width:47.79px;"/>
+                </g>
+                <g transform="matrix(2.86414,2.94241,-2.948597,2.870163,1608.526223,1189.812463)">
+                    <rect x="-84" y="-84" width="168" height="168" style="fill:rgb(235,235,235);fill-opacity:0;stroke:rgb(237,125,39);stroke-width:10px;stroke-miterlimit:4;"/>
+                </g>
+            </g>
+            <g id="Arrow" transform="matrix(0.950245,0,0,0.950245,80.032741,59.199503)">
+                <g transform="matrix(-2.042493,1.179234,-1.179234,-2.042493,7105.450152,2146.510987)">
+                    <path d="M1810.731,1392.17L1818.411,1407.529L1803.052,1407.529L1810.731,1392.17Z" style="fill:rgb(255,214,183);"/>
+                    <path d="M1810.731,1392.17L1818.411,1407.529L1803.052,1407.529L1810.731,1392.17ZM1810.731,1395.507L1805.467,1406.037L1815.996,1406.037L1810.731,1395.507Z" style="fill:rgb(96,42,0);fill-opacity:0;"/>
+                </g>
+                <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,57.342284,117.669911)">
+                    <path d="M1608.526,1189.812L1762.714,1432.147" style="fill:none;stroke:rgb(255,214,183);stroke-width:12.37px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+            </g>
+            <g transform="matrix(0.060355,-0.454276,0.703661,0.161393,725.842511,1495.211054)">
+                <path d="M1517.685,1195.443L1228.555,1172.676" style="fill:none;stroke:rgb(255,214,183);stroke-width:19px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+            <g id="Core">
+                <g transform="matrix(0.707107,0.707107,-0.707107,0.707107,2347.284031,-2139.818584)">
+                    <rect x="1808.733" y="2853.926" width="46.582" height="45.719" style="fill:rgb(235,235,235);"/>
+                    <path d="M1801.804,2846.997L1862.244,2846.997L1862.244,2906.574L1801.804,2906.574L1801.804,2846.997ZM1855.315,2853.926L1808.733,2853.926L1808.733,2899.645L1855.315,2899.645L1855.315,2853.926Z" style="fill:rgb(237,125,39);"/>
+                </g>
+                <g transform="matrix(0.552719,0.552719,-0.538017,0.538017,1608.526223,1189.812463)">
+                    <rect x="-84" y="-84" width="168" height="168" style="fill:rgb(237,125,39);fill-opacity:0.45;"/>
+                    <path d="M93.868,94.138L-93.868,94.138L-93.868,-94.138L93.868,-94.138L93.868,94.138ZM84,-84L-84,-84L-84,84L84,84L84,-84Z" style="fill:rgb(227,182,173);"/>
+                </g>
+            </g>
+            <g id="Axes" transform="matrix(1,0,0,1,5.531329,0)">
+                <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,48.550157,117.669911)">
+                    <path d="M1494.99,1184.961L1271.83,1175.424" style="fill:none;stroke:rgb(255,214,183);stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+                <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,502.077397,117.669911)">
+                    <path d="M1494.99,1184.961L1271.83,1175.424" style="fill:none;stroke:rgb(255,214,183);stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+                <g transform="matrix(0.040868,0.994581,-0.956352,-0.040868,2676.197106,49.107866)">
+                    <path d="M1527.276,1186.34L1313.993,1177.226" style="fill:none;stroke:rgb(255,214,183);stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+                <g transform="matrix(0.040868,0.994581,-0.956352,-0.040868,2676.197106,-356.899807)">
+                    <path d="M1482.563,1184.43L1271.83,1175.424" style="fill:none;stroke:rgb(255,214,183);stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+                <g transform="matrix(0.060355,-0.454276,0.703661,0.161393,671.267481,1686.324684)">
+                    <path d="M1372.168,1183.984L1084.878,1161.362" style="fill:none;stroke:rgb(255,214,183);stroke-width:19px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+            </g>
+            <g transform="matrix(4.166667,0,0,4.166667,1608.526223,1189.812463)">
+                <circle cx="0" cy="0" r="105" style="fill:url(#_RadialDark);"/>
+            </g>
+            <g transform="matrix(1,-0,-0,1,-371.553911,481.47913)">
+                <path d="M1511.589,709.923L1926.546,944.448L2448.571,708.333" style="fill:white;fill-opacity:0;stroke:rgb(237,125,39);stroke-width:47.79px;"/>
+            </g>
+        </g>
+<defs><radialGradient id="_RadialDark" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(105,0,0,105,0,0)"><stop offset="0" style="stop-color:rgb(237,125,39);stop-opacity:0.6"/><stop offset="1" style="stop-color:rgb(237,125,39);stop-opacity:0"/></radialGradient></defs>
+</svg>
+          <svg class="logo-icon logo-icon-light" viewBox="59 43 954 954" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g transform="matrix(1,0,0,1,-0,-1174.197005)">
+<g id="Bloch" transform="matrix(0.871946,0,0,0.871946,-867.466541,655.889082)">
+                <g id="BackBorder">
+                    <g transform="matrix(-1,0,0,-1,3588.606357,1898.145797)">
+                        <path d="M1511.589,709.923L1926.546,944.448L2448.571,708.333" style="fill:white;fill-opacity:0;stroke:rgb(217,100,30);stroke-width:47.79px;"/>
+                    </g>
+                    <g transform="matrix(2.86414,2.94241,-2.948597,2.870163,1608.526223,1189.812463)">
+                        <rect x="-84" y="-84" width="168" height="168" style="fill:rgb(235,235,235);fill-opacity:0;stroke:rgb(237,125,39);stroke-width:10px;stroke-miterlimit:4;"/>
+                    </g>
+                </g>
+                <g id="Arrow" transform="matrix(0.950245,0,0,0.950245,80.032741,59.199503)">
+                    <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,57.342284,117.669911)">
+                        <path d="M1608.526,1189.812L1762.714,1432.147" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:12.37px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                    <g transform="matrix(-2.042493,1.179234,-1.179234,-2.042493,7105.298605,2146.081827)">
+                        <path d="M1810.731,1392.17L1818.411,1407.529L1803.052,1407.529L1810.731,1392.17Z" style="fill:rgb(156,156,156);"/>
+                        <path d="M1810.731,1392.17L1818.411,1407.529L1803.052,1407.529L1810.731,1392.17ZM1810.731,1395.507L1805.467,1406.037L1815.996,1406.037L1810.731,1395.507Z" style="fill:rgb(237,125,39);fill-opacity:0;"/>
+                    </g>
+                </g>
+                <g transform="matrix(0.060355,-0.454276,0.703661,0.161393,725.842511,1495.211054)">
+                    <path d="M1517.685,1195.443L1228.555,1172.676" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:19px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                </g>
+                <g id="Core">
+                    <g transform="matrix(0.552719,0.552719,-0.538017,0.538017,1608.526223,1189.812463)">
+                        <rect x="-84" y="-84" width="168" height="168" style="fill:rgb(255,111,0);fill-opacity:0.45;"/>
+                        <path d="M93.868,94.138L-93.868,94.138L-93.868,-94.138L93.868,-94.138L93.868,94.138ZM84,-84L-84,-84L-84,84L84,84L84,-84Z" style="fill:rgb(111,89,82);fill-opacity:0.77;"/>
+                    </g>
+                    <g transform="matrix(0.707107,0.707107,-0.707107,0.707107,2347.284031,-2139.818584)">
+                        <rect x="1808.733" y="2853.926" width="46.582" height="45.719" style="fill:rgb(163,115,97);"/>
+                        <path d="M1801.804,2846.997L1862.244,2846.997L1862.244,2906.574L1801.804,2906.574L1801.804,2846.997ZM1855.315,2853.926L1808.733,2853.926L1808.733,2899.645L1855.315,2899.645L1855.315,2853.926Z" style="fill:rgb(245,145,68);"/>
+                    </g>
+                </g>
+                <g id="Axes" transform="matrix(1,0,0,1,4.471669,0)">
+                    <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,48.550157,117.669911)">
+                        <path d="M1494.99,1184.961L1271.83,1175.424" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                    <g transform="matrix(0.994581,-0.040868,-0.040868,0.956352,502.077397,117.669911)">
+                        <path d="M1494.99,1184.961L1271.83,1175.424" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                    <g transform="matrix(0.040868,0.994581,-0.956352,-0.040868,2676.197106,49.107866)">
+                        <path d="M1527.276,1186.34L1313.993,1177.226" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                    <g transform="matrix(0.040868,0.994581,-0.956352,-0.040868,2676.197106,-356.899807)">
+                        <path d="M1481.988,1184.405L1271.83,1175.424" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:11.76px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                    <g transform="matrix(0.060355,-0.454276,0.703661,0.161393,671.267481,1686.324684)">
+                        <path d="M1372.168,1183.984L1084.878,1161.362" style="fill:none;stroke:rgb(20,20,20);stroke-opacity:0.42;stroke-width:19px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+                    </g>
+                </g>
+                <g transform="matrix(4.166667,0,0,4.166667,1608.526223,1189.812463)">
+                    <circle cx="0" cy="0" r="105" style="fill:url(#_RadialLight);"/>
+                </g>
+                <g transform="matrix(1,-0,-0,1,-371.553911,481.47913)">
+                    <path d="M1511.589,709.923L1926.546,944.448L2448.571,708.333" style="fill:rgb(20,20,20);fill-opacity:0;stroke:rgb(237,125,39);stroke-width:47.79px;"/>
+                </g>
+            </g>
+</g>
+<defs><radialGradient id="_RadialLight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(105,0,0,105,0,0)"><stop offset="0" style="stop-color:rgb(237,125,39);stop-opacity:0.6"/><stop offset="1" style="stop-color:rgb(237,125,39);stop-opacity:0"/></radialGradient></defs>
+</svg>
+        </div>
+        <div class="brand-text">QKDECODE</div>
+      </div>
+      <div class="topbar-title">
+        <h1>QUANTUM SECURE MESSENGER</h1>
+        <p>BB84 Key Distribution Protocol</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText">Status: Idle</span></div>
+      <button class="btn-reset" id="resetBtn">Reset Session</button>
+    </div>
+  </header>
+
+  <!-- ================= DROPDOWN DRAWER ================= -->
+  <div class="drawer-wrap" id="drawerWrap">
+    <div class="drawer-inner">
+      <div class="nav-group">
+        <button class="nav-btn active" data-nav="dashboard">Dashboard</button>
+        <button class="nav-btn" data-nav="analytics">Analytics</button>
+        <button class="nav-btn" data-nav="about">About</button>
+      </div>
+      <div class="controls-group">
+        <div class="control-item">
+          <span class="control-label">Noise</span>
+          <input type="range" id="noiseSlider" min="0" max="100" value="0">
+          <span class="control-value" id="noiseValue">0%</span>
+        </div>
+        <div class="control-item">
+          <span class="control-label">Eve</span>
+          <div class="toggle" id="eveToggle"><div class="knob"></div></div>
+          <span class="control-value" id="eveValue">Off</span>
+        </div>
+        <button class="btn-run" id="runBtn">Run Simulation</button>
+        <button class="btn-ghost" id="themeToggle">Light Mode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ================= -->
+  <main>
+
+    <!-- DASHBOARD PANEL -->
+    <div class="panel-view active" id="panel-dashboard">
+      <div class="dash-grid">
+
+        <!-- ALICE -->
+        <section class="card">
+          <div class="person-head">
+            <div class="person-id">
+              <div class="avatar">A</div>
+              <div class="person-meta">
+                <div class="pname">Alice</div>
+                <div class="pstatus"><span class="dot"></span> Online</div>
+              </div>
+            </div>
+            <div class="bb84-badge" id="aliceBadge">BB84 Idle</div>
+          </div>
+
+          <div class="session-stats">
+            <div class="stat-row"><span class="k">Photons Encoded</span><span class="v" id="alicePhotons">—</span></div>
+            <div class="stat-row"><span class="k">Basis Match</span><span class="v" id="aliceBasis">—</span></div>
+          </div>
+
+          <div class="card-spacer"></div>
+
+          <div class="compose-label">Start Secure Conversation</div>
+          <div class="compose-box">
+            <textarea id="aliceInput" maxlength="500" placeholder="Type a message…" disabled></textarea>
+            <div class="compose-foot">
+              <span class="char-count"><span id="aliceCount">0</span>/500</span>
+            </div>
+          </div>
+          <button class="btn-send" id="aliceSend" disabled>Send Message</button>
+        </section>
+
+        <!-- CHAT (combined) -->
+        <section class="card chat-card" id="chatCard">
+          <div class="chat-head">
+            <h2>Chat</h2>
+            <span>Encrypted via shared BB84 key</span>
+          </div>
+          <div class="chat-shared" id="sharedChat">
+            <div class="placeholder">Waiting for secure quantum message…</div>
+          </div>
+        </section>
+
+        <!-- BOB -->
+        <section class="card">
+          <div class="person-head">
+            <div class="person-id">
+              <div class="avatar bob">B</div>
+              <div class="person-meta">
+                <div class="pname">Bob</div>
+                <div class="pstatus"><span class="dot"></span> Online</div>
+              </div>
+            </div>
+            <div class="bb84-badge" id="bobBadge">BB84 Idle</div>
+          </div>
+
+          <div class="session-stats">
+            <div class="stat-row"><span class="k">Photons Measured</span><span class="v" id="bobPhotons">—</span></div>
+            <div class="stat-row"><span class="k">Basis Match</span><span class="v" id="bobBasis">—</span></div>
+          </div>
+
+          <div class="card-spacer"></div>
+
+          <div class="compose-label">Start Secure Conversation</div>
+          <div class="compose-box">
+            <textarea id="bobInput" maxlength="500" placeholder="Type a message…" disabled></textarea>
+            <div class="compose-foot">
+              <span class="char-count"><span id="bobCount">0</span>/500</span>
+            </div>
+          </div>
+          <button class="btn-send" id="bobSend" disabled>Send Message</button>
+        </section>
+
+      </div>
+
+      <!-- STAGE VISUALIZATION (full width, below) -->
+      <div class="stage-bar">
+        <div class="stage-head">
+          <div class="stage-title">Quantum Channel <span>(BB84 Protocol)</span></div>
+          <div class="stage-stats">
+            <div class="link-meta"><div class="k">Key Length</div><div class="v" id="keyLenVal">— bits</div></div>
+            <div class="link-meta"><div class="k">QBER</div><div class="v" id="qberVal">—</div></div>
+          </div>
+        </div>
+        <div class="stage-track-row">
+          <div class="link-avatar">A</div>
+          <div class="stage-track-wrap">
+            <div class="stage-line"></div>
+            <div class="photon" id="photon"></div>
+            <div class="stage-track" id="stageTrack"></div>
+          </div>
+          <div class="link-avatar bob">B</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS PANEL -->
+    <div class="panel-view" id="panel-analytics">
+      <div class="content-card">
+        <h2>Session Analytics</h2>
+        <p>Every simulation run is logged here — noise level, eavesdropper presence, the resulting quantum bit error rate, and whether the channel came out secure.</p>
+        <table>
+          <thead><tr><th>Time</th><th>Noise</th><th>Eve</th><th>QBER</th><th>Result</th></tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+        <div class="empty-state" id="historyEmpty">No simulation runs yet. Open the menu and hit "Run Simulation" to generate your first entry.</div>
+      </div>
+    </div>
+
+    <!-- ABOUT PANEL -->
+    <div class="panel-view" id="panel-about">
+      <div class="content-card">
+        <h2>About This Simulation</h2>
+        <p><strong>Quantum Secure Messenger</strong> walks through the BB84 protocol, the first quantum key distribution scheme, published by Bennett and Brassard in 1984. It lets Alice and Bob agree on a shared secret key using polarized photons, with the laws of quantum mechanics guaranteeing that any eavesdropper leaves a trace.</p>
+        <p>Alice prepares a string of photons in random bases and sends them across the quantum channel. Bob measures each one in a randomly chosen basis of his own. Afterward, the two compare bases over an ordinary channel and keep only the results where their choices matched — that surviving string becomes the raw key.</p>
+        <p>Before trusting the key, they sacrifice a sample of it to estimate the <strong>quantum bit error rate (QBER)</strong>. A clean channel gives a low QBER; an eavesdropper measuring photons in transit disturbs their states and drives the error rate up, exposing the intrusion.</p>
+        <p>Use the <strong>Noise</strong> slider and <strong>Eve</strong> toggle in the menu to see how each factor pushes the QBER, and whether the channel still comes out secured on the other side.</p>
+      </div>
+    </div>
+
+  </main>
+
+<script>
+(function(){
+  // ---------- THEME ----------
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    themeToggle.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
+  });
+
+  // ---------- DRAWER ----------
+  const drawerToggle = document.getElementById('drawerToggle');
+  const drawerWrap = document.getElementById('drawerWrap');
+  drawerToggle.addEventListener('click', () => {
+    const open = drawerWrap.classList.toggle('open');
+    drawerToggle.classList.toggle('open', open);
+    drawerToggle.setAttribute('aria-expanded', open);
+  });
+
+  // ---------- NAV ----------
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const panels = {
+    dashboard: document.getElementById('panel-dashboard'),
+    analytics: document.getElementById('panel-analytics'),
+    about: document.getElementById('panel-about'),
+  };
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(panels).forEach(p => p.classList.remove('active'));
+      panels[btn.dataset.nav].classList.add('active');
+    });
+  });
+
+  // ---------- CONTROLS ----------
+  const noiseSlider = document.getElementById('noiseSlider');
+  const noiseValue = document.getElementById('noiseValue');
+  noiseSlider.addEventListener('input', () => { noiseValue.textContent = noiseSlider.value + '%'; });
+
+  const eveToggle = document.getElementById('eveToggle');
+  const eveValue = document.getElementById('eveValue');
+  let eveOn = false;
+  eveToggle.addEventListener('click', () => {
+    eveOn = !eveOn;
+    eveToggle.classList.toggle('on', eveOn);
+    eveValue.textContent = eveOn ? 'On' : 'Off';
+  });
+
+  // ---------- STAGE (protocol step) DEFINITIONS ----------
+  const STEP_DEFS = [
+    { title:'Preparing',   waiting:'Waiting', active:'Encoding…',   done:'Encoded' },
+    { title:'Sending',     waiting:'Waiting', active:'In transit…', done:'Sent' },
+    { title:'Measuring',   waiting:'Waiting', active:'Measuring…',  done:'Measured' },
+    { title:'Basis Comp.', waiting:'Waiting', active:'Comparing…',  done:'Reconciled' },
+    { title:'QBER Check',  waiting:'Waiting', active:'Checking…',   done:'Clean' },
+    { title:'Key Gen',     waiting:'Waiting', active:'Deriving…',   done:'Ready' },
+    { title:'Encryption',  waiting:'Waiting', active:'Encrypting…', done:'Encrypted' },
+    { title:'Transmission',waiting:'Waiting', active:'Delivering…', done:'Delivered' },
+  ];
+
+  const stageTrack = document.getElementById('stageTrack');
+  STEP_DEFS.forEach((def, i) => {
+    const div = document.createElement('div');
+    div.className = 'stage-step';
+    div.id = 'stage-step-' + i;
+    div.innerHTML = `
+      <div class="node"></div>
+      <div class="label">${def.title}</div>
+      <div class="sub">${def.waiting}</div>`;
+    stageTrack.appendChild(div);
+  });
+
+  function setStepState(i, state, subtext){
+    const el = document.getElementById('stage-step-' + i);
+    el.classList.remove('active','done','alert');
+    if(state) el.classList.add(state);
+    el.querySelector('.sub').textContent = subtext;
+  }
+  function resetSteps(){
+    STEP_DEFS.forEach((def,i) => setStepState(i, null, def.waiting));
+  }
+
+  // ---------- PHOTON (progress along the whole channel) ----------
+  const photon = document.getElementById('photon');
+  function movePhotonTo(i){
+    const pct = ((i + 0.5) / STEP_DEFS.length) * 100;
+    photon.style.left = pct + '%';
+  }
+  function movePhotonHome(){ photon.style.left = '0%'; photon.classList.remove('alert'); }
+  function movePhotonEnd(){ photon.style.left = '100%'; }
+
+  // ---------- STATUS PILL ----------
+  const statusPill = document.getElementById('statusPill');
+  const statusText = document.getElementById('statusText');
+  function setStatus(label, cls){
+    statusPill.className = 'status-pill' + (cls ? ' '+cls : '');
+    statusText.textContent = 'Status: ' + label;
+  }
+
+  // ---------- BADGES ----------
+  const aliceBadge = document.getElementById('aliceBadge');
+  const bobBadge = document.getElementById('bobBadge');
+  function setSecured(on){
+    [aliceBadge,bobBadge].forEach(b => {
+      b.classList.toggle('live', on);
+      b.textContent = on ? 'BB84 Secured' : 'BB84 Idle';
+    });
+  }
+
+  // ---------- SESSION STATS ----------
+  const alicePhotons = document.getElementById('alicePhotons');
+  const aliceBasis = document.getElementById('aliceBasis');
+  const bobPhotons = document.getElementById('bobPhotons');
+  const bobBasis = document.getElementById('bobBasis');
+  function resetStats(){
+    alicePhotons.textContent = '—'; aliceBasis.textContent = '—';
+    bobPhotons.textContent = '—'; bobBasis.textContent = '—';
+  }
+
+  // ---------- CHAT (combined, single stream) ----------
+  const aliceInput = document.getElementById('aliceInput');
+  const bobInput = document.getElementById('bobInput');
+  const aliceCount = document.getElementById('aliceCount');
+  const bobCount = document.getElementById('bobCount');
+  const aliceSend = document.getElementById('aliceSend');
+  const bobSend = document.getElementById('bobSend');
+  const sharedChat = document.getElementById('sharedChat');
+  const chatCard = document.getElementById('chatCard');
+
+  function wireCompose(input, countEl){
+    input.addEventListener('input', () => { countEl.textContent = input.value.length; });
+  }
+  wireCompose(aliceInput, aliceCount);
+  wireCompose(bobInput, bobCount);
+
+  function clearPlaceholder(){
+    const ph = sharedChat.querySelector('.placeholder');
+    if(ph) ph.remove();
+  }
+  function addMessage(sender, text){
+    clearPlaceholder();
+    const row = document.createElement('div');
+    row.className = 'msg-row ' + sender;
+    row.innerHTML = `<div class="msg-sender">${sender === 'alice' ? 'Alice' : 'Bob'}</div><div class="bubble"></div>`;
+    row.querySelector('.bubble').textContent = text;
+    sharedChat.appendChild(row);
+    sharedChat.scrollTop = sharedChat.scrollHeight;
+  }
+  function pulseChat(){
+    chatCard.classList.add('pulse');
+    setTimeout(() => chatCard.classList.remove('pulse'), 400);
+  }
+
+  function sendFromAlice(){
+    const text = aliceInput.value.trim();
+    if(!text || !secured) return;
+    addMessage('alice', text);
+    pulseChat();
+    aliceInput.value = ''; aliceCount.textContent = '0';
+    aliceSend.disabled = true;
+  }
+  function sendFromBob(){
+    const text = bobInput.value.trim();
+    if(!text || !secured) return;
+    addMessage('bob', text);
+    pulseChat();
+    bobInput.value = ''; bobCount.textContent = '0';
+    bobSend.disabled = true;
+  }
+  aliceSend.addEventListener('click', sendFromAlice);
+  bobSend.addEventListener('click', sendFromBob);
+  aliceInput.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendFromAlice(); }});
+  bobInput.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendFromBob(); }});
+
+  let secured = false;
+  function setChatEnabled(on){
+    secured = on;
+    [aliceInput,bobInput].forEach(el => el.disabled = !on);
+    aliceSend.disabled = !on || aliceInput.value.trim().length===0;
+    bobSend.disabled = !on || bobInput.value.trim().length===0;
+  }
+  [aliceInput,bobInput].forEach(el => el.addEventListener('input', () => {
+    aliceSend.disabled = !secured || aliceInput.value.trim().length===0;
+    bobSend.disabled = !secured || bobInput.value.trim().length===0;
+  }));
+
+  // ---------- ANALYTICS ----------
+  const historyBody = document.getElementById('historyBody');
+  const historyEmpty = document.getElementById('historyEmpty');
+  const runHistory = [];
+  function logRun(noise, eve, qber, ok){
+    runHistory.unshift({ time: new Date().toLocaleTimeString(), noise, eve, qber, ok });
+    renderHistory();
+  }
+  function renderHistory(){
+    historyEmpty.style.display = runHistory.length ? 'none' : 'block';
+    historyBody.innerHTML = runHistory.map(r => `
+      <tr>
+        <td>${r.time}</td>
+        <td>${r.noise}%</td>
+        <td>${r.eve ? 'On' : 'Off'}</td>
+        <td>${r.qber.toFixed(1)}%</td>
+        <td><span class="tag ${r.ok?'ok':'bad'}">${r.ok ? 'Secured' : 'Eve Detected'}</span></td>
+      </tr>`).join('');
+  }
+
+  // ---------- SIMULATION ----------
+  const runBtn = document.getElementById('runBtn');
+  const keyLenVal = document.getElementById('keyLenVal');
+  const qberVal = document.getElementById('qberVal');
+
+  function wait(ms){ return new Promise(res => setTimeout(res, ms)); }
+
+  async function runSimulation(){
+    runBtn.disabled = true;
+    resetSteps();
+    resetStats();
+    setSecured(false);
+    setChatEnabled(false);
+    setStatus('Running', 'running');
+    qberVal.textContent = '—';
+    keyLenVal.textContent = '— bits';
+    movePhotonHome();
+
+    const noise = parseInt(noiseSlider.value, 10);
+
+    for(let i = 0; i < STEP_DEFS.length; i++){
+      setStepState(i, 'active', STEP_DEFS[i].active);
+      movePhotonTo(i);
+
+      if(i === 0) alicePhotons.textContent = '256 qubits';
+      if(i === 2) bobPhotons.textContent = '256 qubits';
+      if(i === 3){
+        const matchPct = Math.round(48 + Math.random() * 6);
+        aliceBasis.textContent = matchPct + '%';
+        bobBasis.textContent = matchPct + '%';
+      }
+
+      await wait(550);
+
+      if(i === 4){ // QBER Estimation
+        const qber = Math.min(100, noise * 0.3 + (eveOn ? 24 + Math.random()*12 : Math.random()*3));
+        qberVal.textContent = qber.toFixed(1) + '%';
+        const isSecure = qber <= 11;
+        if(!isSecure){
+          setStepState(i, 'alert', 'Eve detected!');
+          photon.classList.add('alert');
+          setStatus('Eve Detected', 'alert');
+          logRun(noise, eveOn, qber, false);
+          runBtn.disabled = false;
+          return;
+        }
+      }
+
+      setStepState(i, 'done', STEP_DEFS[i].done);
+    }
+
+    movePhotonEnd();
+    const qberFinal = parseFloat(qberVal.textContent) || 0;
+    keyLenVal.textContent = Math.round(180 - qberFinal * 4) + ' bits';
+    setSecured(true);
+    setChatEnabled(true);
+    setStatus('Secured', 'secured');
+    logRun(noise, eveOn, qberFinal, true);
+    runBtn.disabled = false;
+  }
+  runBtn.addEventListener('click', runSimulation);
+
+  // ---------- RESET ----------
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    resetSteps();
+    resetStats();
+    setSecured(false);
+    setChatEnabled(false);
+    setStatus('Idle', '');
+    qberVal.textContent = '—';
+    keyLenVal.textContent = '— bits';
+    movePhotonHome();
+    sharedChat.innerHTML = '<div class="placeholder">Waiting for secure quantum message…</div>';
+    aliceInput.value=''; bobInput.value='';
+    aliceCount.textContent='0'; bobCount.textContent='0';
+    runBtn.disabled = false;
+  });
+
+  // init
+  resetSteps();
+  movePhotonHome();
+})();
+</script>
+</body>
+</html>
