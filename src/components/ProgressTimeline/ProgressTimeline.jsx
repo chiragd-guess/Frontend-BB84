@@ -45,85 +45,55 @@ export default function ProgressTimeline({
   currentStage = 0,
   failed = false
 }) {
-
+  const totalSteps = steps.length;
+  const stageOffset = currentStage > 0
+    ? Math.min(100, Math.max(0, ((currentStage - 1) / (totalSteps - 1)) * 100))
+    : 0;
 
   return (
+    <div className="stage-bar">
+      <div className="stage-head">
+        <div className="stage-title">Protocol Timeline</div>
+        <div className="stage-stats">
+          <div className="link-meta">
+            <div className="k">Stage</div>
+            <div className="v">{currentStage}/{totalSteps}</div>
+          </div>
+        </div>
+      </div>
 
-    <ol className="progress-timeline">
+      <div className="stage-track-row">
+        <div className="link-avatar alice">A</div>
 
-
-      {
-        steps.map((step)=>{
-
-
-          const completed =
-          step.id < currentStage;
-
-
-          const active =
-          step.id === currentStage;
-
-
-
-          const failedStep =
-failed && step.id >= 5;
-
-
-
-          return (
-
-            <li
-            key={step.id}
-            className={`
-              progress-timeline__step
-              ${completed ? "completed" : ""}
-              ${active ? "active" : ""}
-              ${failedStep ? "failed" : ""}
-            `}
-          >
-            <div className="progress-step__icon">
-              {failedStep
-                ? "✕"
-                : completed
-                ? "✓"
+        <div className="stage-track-wrap">
+          <div className="stage-line" />
+          <div className={`photon ${failed ? "alert" : ""}`} style={{ left: `${stageOffset}%` }} />
+          <div className="stage-track">
+            {steps.map((step) => {
+              const completed = step.id < currentStage;
+              const active = step.id === currentStage;
+              const alert = failed && step.id >= 5;
+              const statusClass = completed
+                ? "done"
                 : active
-                ? "●"
-                : "○"}
-            </div>
-          
-            <div className="progress-step__content">
-    <h4>{step.title}</h4>
+                ? "active"
+                : alert
+                ? "alert"
+                : "";
 
-    <p className="progress-step__description">
-        {step.description}
-    </p>
+              return (
+                <div key={step.id} className={`stage-step ${statusClass}`}>
+                  <div className="node" />
+                  <div className="label">{step.title}</div>
+                  <div className="sub">{step.description}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
-    <span>
-                {failedStep
-                  ? "Aborted"
-                  : completed
-                  ? "Completed"
-                  : active
-                  ? "Running"
-                  : "Waiting"}
-              </span>
-            </div>
-          
-            {step.id !== steps.length && (
-              <div className="progress-step__line"></div>
-            )}
-          </li>
-
-          );
-
-
-        })
-
-      }
-
-
-    </ol>
-
+        <div className="link-avatar bob">B</div>
+      </div>
+    </div>
   );
-
 }

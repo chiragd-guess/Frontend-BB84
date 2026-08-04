@@ -18,29 +18,37 @@ export default function TopBar({ simulation, onReset }) {
   return (
     <header className="top-bar dashboard-header">
 
-      <div className="dashboard-header__left">
+      <div className="dashboard-header__left topbar-left">
 
-  <div className="dashboard-header__logo">
-    <img
-      src={logo}
-      alt="Quantum Secure Messenger"
-      className="dashboard-header__logo-image"
-    />
-  </div>
+        <button
+          type="button"
+          className="drawer-toggle"
+          aria-expanded="false"
+        >
+          <span className="chev" /> Menu
+        </button>
 
-  <div className="dashboard-header__title-group">
-    <h1 className="dashboard-header__title">
-      Quantum Secure Messenger
-    </h1>
+        <div className="dashboard-header__logo">
+          <img
+            src={logo}
+            alt="Quantum Secure Messenger"
+            className="dashboard-header__logo-image"
+          />
+        </div>
 
-    <p className="dashboard-header__subtitle">
-      BB84 Key Distribution Protocol
-    </p>
-  </div>
+        <div className="dashboard-header__title-group">
+          <h1 className="dashboard-header__title">
+            Quantum Secure Messenger
+          </h1>
 
-</div>
+          <p className="dashboard-header__subtitle">
+            BB84 Key Distribution Protocol
+          </p>
+        </div>
 
-      <div className="dashboard-header__right">
+      </div>
+
+      <div className="dashboard-header__right topbar-right">
 
         <div className="dashboard-header__status">
           <StatusPill label="Status" value={pillLabel} />
