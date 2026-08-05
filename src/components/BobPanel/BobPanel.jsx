@@ -213,8 +213,8 @@ export default function BobPanel({ simulation, setSimulation }) {
 <div className="chat-user">
 
 
-<div className="chat-avatar">
-👨
+<div className="chat-avatar chat-avatar--bob">
+B
 </div>
 
 

@@ -22,100 +22,67 @@ export default function MainLayout() {
     createInitialSimulation()
   );
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const setNoiseLevel = (value) => {
     updateNoise(setSimulation, value);
   };
 
-
   const setEveEnabled = (value) => {
     updateEve(setSimulation, value);
   };
-
 
   const handleReset = () => {
     resetSimulation(setSimulation);
   };
 
-
   const handleRun = () => {
-
-    if(simulation.status === "running")
-      return;
-
+    if (simulation.status === "running") return;
     runSimulation(setSimulation);
-
   };
 
-
   return (
-
     <div className="app-shell">
-
 
       <TopBar
         simulation={simulation}
         onReset={handleReset}
+        drawerOpen={drawerOpen}
+        onToggleDrawer={() => setDrawerOpen((v) => !v)}
       />
 
+      <div className={`drawer-wrap ${drawerOpen ? "open" : ""}`}>
+        <div className="drawer-inner">
 
-      <div className="body">
-
-
-        <aside className="sidebar">
-
-
-          <Navbar />
-
+          <Navbar simulation={simulation} />
 
           <QuickControls
-
             noiseLevel={simulation.channel.noise}
-
             eveEnabled={simulation.channel.eve}
-
             onNoiseChange={setNoiseLevel}
-
             onEveChange={setEveEnabled}
-
             onRun={handleRun}
-
+            setSimulation={setSimulation}
           />
 
-
-        </aside>
-
-
-
-        <main className="main-content">
-
-
-          <Outlet
-            context={{
-              simulation,
-              setSimulation
-            }}
-          />
-
-
-        </main>
-
-
+        </div>
       </div>
 
-
+      <main className="main-content">
+        <Outlet
+          context={{
+            simulation,
+            setSimulation
+          }}
+        />
+      </main>
 
       <footer className="footer-disclaimer">
-
         <p>
           Educational simulation only. Not for real cryptographic use.
         </p>
-
       </footer>
 
-
     </div>
-
   );
-
 }

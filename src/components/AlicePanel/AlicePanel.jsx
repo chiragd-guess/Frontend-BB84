@@ -9,8 +9,8 @@ export default function AlicePanel({ simulation, setSimulation }) {
 
         <div className="chat-user">
 
-          <div className="chat-avatar">
-            👩
+          <div className="chat-avatar chat-avatar--alice">
+            A
           </div>
 
           <div className="chat-user-info">

@@ -24,39 +24,24 @@ export default function Dashboard() {
           BB84 MAIN VISUALIZATION
       ========================== */}
 
-      <div className="panels-row">
-
+    <div className="panels-row">
 
         <AlicePanel
-
           simulation={simulation}
-
           setSimulation={setSimulation}
-
         />
-
-
-
-        <QuantumChannelPanel
-
-          simulation={simulation}
-
-          currentStage={simulation.protocol.stage}
-
-        />
-
-
 
         <BobPanel
-
           simulation={simulation}
-
           setSimulation={setSimulation}
-
         />
 
-
       </div>
+
+      <QuantumChannelPanel
+        simulation={simulation}
+        currentStage={simulation.protocol.stage}
+      />
 
 
 

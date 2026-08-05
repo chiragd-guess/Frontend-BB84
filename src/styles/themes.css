@@ -1,8 +1,7 @@
 [data-theme="dark"] {
   --button-text:#141414;
-  --accent-soft:rgba(237,125,39,.12);
+  --accent-soft:rgba(237,125,39,.18);
 
-  /* WARNING STATES */
   --warning:#f59e0b;
   --warning-bg:rgba(245,158,11,.12);
   --warning-text:#fef3c7;
@@ -10,77 +9,37 @@
   --success:#22c55e;
   --danger:#ef4444;
   --info:#60a5fa;
-    /* Quantum Environment */
-    --quantum-glow:
-    rgba(237,125,39,.18);
-  
-    --quantum-grid:
-    rgba(237,125,39,.06);
 
+  --quantum-glow:rgba(237,125,39,.18);
+  --quantum-grid:rgba(237,125,39,.06);
 
   /* MAIN REFERENCE COLORS */
-
   --bg:#141414;
+  --bg-panel:#1c1c17;
+  --surface:#232319;
 
-  --bg-panel:
-rgba(65,66,58,.75);
-
-  --surface:
-  rgba(0,0,0,.25);
-
-
-  --text-primary:#F8FAFC;
-  --text-secondary:#A8A29E;
-
+  --text-primary:#F7F7F7;
+  --text-secondary:rgba(236,226,210,.55);
 
   --accent:#ED7D27;
-
   --accent-hover:#D9641E;
 
+  --border-color:rgba(217,100,30,.28);
 
-  --border-color:
-  rgba(236,226,210,.28);
+  /* CARDS — flat, not glassy */
+  --card-bg:#1c1c17;
 
-
-
-  /* CARDS */
-  --card-bg:
-linear-gradient(
-    180deg,
-    rgba(20,20,20,.35),
-    rgba(20,20,20,.65)
-);
-
-
-  --shadow:
-  0 20px 60px rgba(0,0,0,.35);
-
-
-
-  /* IMPORTANT:
-     BACKGROUND DOT PATTERN
-  */
-
+  --shadow:0 12px 30px rgba(0,0,0,.35);
 
   --background-pattern:
-
-radial-gradient(
-  circle,
-  rgba(217,100,30,.18) 1px,
-  transparent 1.2px
-),
-radial-gradient(
-  circle,
-  rgba(217,100,30,.18) .5px,
-  transparent .7px
-);
+    radial-gradient(circle at 1px 1px, rgba(236,226,210,.12) 1px, transparent 0);
 }
 /* ================= LIGHT MODE ================= */
 
-
 [data-theme="light"] {
   --button-text:#ffffff;
-  --accent-soft:rgba(217,100,30,.10);
+  --accent-soft:rgba(217,100,30,.14);
+
   --warning:#d97706;
   --warning-bg:rgba(217,100,30,.10);
   --warning-text:#78350f;
@@ -88,163 +47,37 @@ radial-gradient(
   --success:#16a34a;
   --danger:#dc2626;
   --info:#2563eb;
-  /* Quantum Environment */
-  --quantum-glow:
-  rgba(217,100,30,.10);
 
-  --quantum-grid:
-  rgba(217,100,30,.04);
+  --quantum-glow:rgba(217,100,30,.10);
+  --quantum-grid:rgba(217,100,30,.04);
 
+  --bg:#FFF8EC;
+  --bg-panel:#F7F7F7;
+  --surface:#ffffff;
 
-  --bg:#F7F7F7;
-
-
-  --bg-panel:
-rgba(236,226,210,.75);
-
-
-  --surface:
-  rgba(255,255,255,.75);
-
-
-
-  --text-primary:#18181B;
-  --text-secondary:#52525B;
-
-
+  --text-primary:#141414;
+  --text-secondary:rgba(65,66,58,.6);
 
   --accent:#D9641E;
-
-
   --accent-hover:#B94E12;
 
+  --border-color:rgba(65,66,58,.18);
 
+  /* CARDS — flat, not glassy */
+  --card-bg:#ffffff;
 
-  --border-color:
-  rgba(65,66,58,.32);
-
-
-
-  --card-bg:
-linear-gradient(
-    180deg,
-    rgba(255,255,255,.55),
-    rgba(255,255,255,.78)
-);
-
-
-
-  --shadow:
-
-  0 20px 60px rgba(65,66,58,.12);
-
-
-
-  --warning:#d97706;
-
-  --warning-bg:
-  rgba(217,119,6,.12);
-
-  --warning-text:#92400e;
-
-
+  --shadow:0 12px 30px rgba(65,66,58,.10);
 
   --background-pattern:
-
-radial-gradient(
-  circle,
-  rgba(217,100,30,.25) .8px,
-  transparent .8px
-);
+    radial-gradient(circle at 1px 1px, rgba(65,66,58,.14) 1px, transparent 0);
 }
-
 /* ================= GLOBAL THEME ================= */
-
 
 html,
 body{
     background-color:var(--bg);
-
-    background-image:
-        var(--background-pattern),
-        url("../assets/quantum-bg.svg");
-
-    background-size:
-        28px 28px,
-        cover;
-
-    background-repeat:
-        repeat,
-        no-repeat;
-
-    background-attachment:
-        fixed,
-        fixed;
-}
-/* cards */
-
-.alice-panel,
-.quantum-channel-panel,
-.bob-panel,
-.quantum-statistics,
-.photon-chart,
-.session-summary,
-.quick-controls,
-.status-card,
-.status-pill,
-.message-composer,
-.chat-window,
-.key-exchange-visualizer,
-.analytics-chart {
-
-
-
-  background: var(--card-bg);
-
-
-  border:
-  1px solid var(--border-color);
-
-
-  box-shadow:
-  var(--shadow);
-
-
-  backdrop-filter:
-  blur(4px);
-
-}
-
-
-
-/* inputs */
-
-
-input,
-textarea,
-select {
-
-
-  background:
-  var(--surface);
-
-
-  color:
-  var(--text-primary);
-
-
-  border:
-  1px solid var(--border-color);
-
-}
-
-
-
-::placeholder {
-
-  color:
-  var(--text-secondary);
-
-  opacity:.55;
-
+    background-image: var(--background-pattern);
+    background-size: 22px 22px;
+    background-repeat: repeat;
+    background-attachment: fixed;
 }

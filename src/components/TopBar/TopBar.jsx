@@ -1,7 +1,7 @@
 import StatusPill from "../StatusPill/StatusPill";
 import logo from "../../assets/images/logo.png";
 
-export default function TopBar({ simulation, onReset }) {
+export default function TopBar({ simulation, onReset, drawerOpen, onToggleDrawer }) {
   const status = simulation?.status ?? "idle";
 
   const pillLabel =
@@ -20,25 +20,34 @@ export default function TopBar({ simulation, onReset }) {
 
       <div className="dashboard-header__left">
 
-  <div className="dashboard-header__logo">
-    <img
-      src={logo}
-      alt="Quantum Secure Messenger"
-      className="dashboard-header__logo-image"
-    />
-  </div>
+        <button
+          type="button"
+          className={`drawer-toggle ${drawerOpen ? "open" : ""}`}
+          onClick={onToggleDrawer}
+          aria-expanded={drawerOpen}
+        >
+          <span className="chev"></span> Menu
+        </button>
 
-  <div className="dashboard-header__title-group">
-    <h1 className="dashboard-header__title">
-      Quantum Secure Messenger
-    </h1>
+        <div className="dashboard-header__logo">
+          <img
+            src={logo}
+            alt="Quantum Secure Messenger"
+            className="dashboard-header__logo-image"
+          />
+        </div>
 
-    <p className="dashboard-header__subtitle">
-      BB84 Key Distribution Protocol
-    </p>
-  </div>
+        <div className="dashboard-header__title-group">
+          <h1 className="dashboard-header__title">
+            Quantum Secure Messenger
+          </h1>
 
-</div>
+          <p className="dashboard-header__subtitle">
+            BB84 Key Distribution Protocol
+          </p>
+        </div>
+
+      </div>
 
       <div className="dashboard-header__right">
 

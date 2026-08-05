@@ -45,8 +45,7 @@ def simulate(
 
     simulator = BB84Simulator()
     print("INPUTS:")
-    print("noise:", channel_noise)
-    print("eve:", eve_interception)
+    
 
     results = simulator.run(
 
