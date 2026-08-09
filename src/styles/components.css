@@ -1180,10 +1180,48 @@
 }
 
 /* ---- Quantum Channel Panel Banner ---- */
-.quantum-channel-panel__banner {
-  border: 1px solid;
-  padding: var(--space-md);
-  text-align: center;
+.quantum-channel-panel__banner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:var(--radius-md);
+  border:1px solid var(--border-color);
+  background:var(--card-bg);
+  padding:12px var(--space-md);
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.3px;
+  transition:all .25s ease;
+}
+.quantum-channel-panel__banner-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:1px solid currentColor;
+  font-size:11px;
+  flex:0 0 auto;
+}
+.quantum-channel-panel__banner--idle{
+  color:var(--text-secondary);
+  opacity:.75;
+}
+.quantum-channel-panel__banner--success{
+  border-color:var(--success);
+  color:var(--success);
+  background:rgba(34,197,94,.08);
+  box-shadow:0 0 16px -6px var(--success);
+}
+.quantum-channel-panel__banner--danger{
+  border-color:var(--danger);
+  color:var(--danger);
+  background:rgba(239,68,68,.08);
+  box-shadow:0 0 16px -6px var(--danger);
+  animation:alertblink 1.6s infinite;
 }
 
 /* ---- Bob Panel ---- */

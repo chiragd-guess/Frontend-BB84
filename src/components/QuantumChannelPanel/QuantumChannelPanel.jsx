@@ -52,13 +52,24 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
         <div className="link-avatar bob">B</div>
       </div>
 
-      <div className="quantum-channel-panel__banner">
+      <div
+        className={`quantum-channel-panel__banner ${
+          aborted
+            ? "quantum-channel-panel__banner--danger"
+            : secure
+            ? "quantum-channel-panel__banner--success"
+            : "quantum-channel-panel__banner--idle"
+        }`}
+      >
+        <span className="quantum-channel-panel__banner-icon">
+          {aborted ? "⚠" : secure ? "✓" : "◌"}
+        </span>
         <p>
           {aborted
-            ? "⚠ Transmission Aborted — High QBER"
+            ? "Transmission Aborted — High QBER"
             : secure
-            ? "✓ Quantum Key Established Successfully"
-            : "Awaiting key exchange..."}
+            ? "Quantum Key Established Successfully"
+            : "Awaiting Key Exchange..."}
         </p>
       </div>
 
