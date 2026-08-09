@@ -878,7 +878,7 @@
 
 }
 
-..chat-window__system{
+.chat-window__system{
   display:flex;
   align-items:flex-start;
   gap:12px;
