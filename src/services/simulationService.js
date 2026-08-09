@@ -18,14 +18,21 @@ function timestamp() {
   return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
-function createAbortMessage(qber) {
+function createAbortMessage(qber, threshold) {
   const fixedQber = Number(qber).toFixed(2);
+  const fixedThreshold = threshold !== undefined ? Number(threshold).toFixed(2) : null;
 
   return {
     id: Date.now(),
     sender: "system",
+    type: "system",
+    variant: "danger",
+    icon: "⚠",
     time: timestamp(),
-    text: `⚠ BB84 Protocol Aborted — High QBER detected (QBER: ${fixedQber}%). Shared key discarded. Message was NOT transmitted.`,
+    title: "Eavesdropper Detected — Protocol Aborted",
+    text: fixedThreshold
+      ? `QBER ${fixedQber}% exceeded the ${fixedThreshold}% security threshold. Shared key discarded — message was not transmitted.`
+      : `QBER ${fixedQber}% exceeded the security threshold. Shared key discarded — message was not transmitted.`,
   };
 }
 
@@ -33,7 +40,7 @@ function createAbortMessage(qber) {
 function calcPhotons(messageText) {
   if (!messageText || !messageText.trim()) return 1000;
   const bits = messageText.trim().length * 8;
-  return Math.max(64, bits * 3);
+  return Math.max(1000, bits * 3);
 }
 
 export async function runSimulation(setSimulation, messageText = null, sender = null) {
@@ -165,7 +172,7 @@ export async function runSimulation(setSimulation, messageText = null, sender = 
           },
             messages: [
               ...prev.messages,
-              createAbortMessage(apiResult.statistics.qber)
+              createAbortMessage(apiResult.statistics.qber, ABORT_THRESHOLD)
             ],
             apiResult,
           }));

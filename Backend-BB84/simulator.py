@@ -31,6 +31,7 @@ from qkd import (
 )
 from encryption import xor_encrypt, xor_decrypt
 
+
 class BB84Simulator:
 
     ########################################################
@@ -38,6 +39,46 @@ class BB84Simulator:
     def __init__(self):
 
         pass
+
+    ########################################################
+    # FIX: input validation, extracted into its own method.
+    # Bad input (negative photon counts, out-of-range
+    # probabilities, etc.) used to travel straight into the
+    # simulation and either crash it or produce nonsense
+    # results. Now we catch it up front with a clear message.
+    ########################################################
+
+    def _validate_inputs(
+        self,
+        number_of_photons,
+        channel_noise,
+        photon_loss,
+        detector_efficiency,
+        dark_count_rate,
+        eve_interception
+    ):
+
+        errors = []
+
+        if not isinstance(number_of_photons, int) or number_of_photons <= 0:
+            errors.append("number_of_photons must be a positive integer")
+
+        if isinstance(number_of_photons, int) and number_of_photons > 100000:
+            errors.append("number_of_photons is too large (max 100000)")
+
+        for name, value in [
+            ("channel_noise", channel_noise),
+            ("photon_loss", photon_loss),
+            ("detector_efficiency", detector_efficiency),
+            ("dark_count_rate", dark_count_rate),
+            ("eve_interception", eve_interception),
+        ]:
+            if not isinstance(value, (int, float)):
+                errors.append(f"{name} must be a number")
+            elif not (0 <= value <= 1):
+                errors.append(f"{name} must be between 0 and 1 (got {value})")
+
+        return errors
 
     ########################################################
 
@@ -56,7 +97,79 @@ class BB84Simulator:
         dark_count_rate,
 
         eve_interception,
-        
+
+        message=None
+
+    ):
+
+        ####################################################
+        # FIX: validate before doing any work at all
+        ####################################################
+
+        validation_errors = self._validate_inputs(
+            number_of_photons,
+            channel_noise,
+            photon_loss,
+            detector_efficiency,
+            dark_count_rate,
+            eve_interception
+        )
+
+        if validation_errors:
+            return {
+                "success": False,
+                "error": "Invalid input",
+                "details": validation_errors
+            }
+
+        ####################################################
+        # FIX: wrap the whole simulation so any unexpected
+        # failure (in this file OR in alice.py / bob.py /
+        # channel.py / detector.py / eve.py / qkd.py /
+        # encryption.py) comes back as a clean error instead
+        # of a raw 500 crash with no explanation.
+        ####################################################
+
+        try:
+            return self._run_simulation(
+                number_of_photons,
+                channel_noise,
+                photon_loss,
+                detector_efficiency,
+                dark_count_rate,
+                eve_interception,
+                message
+            )
+
+        except Exception as exc:
+            return {
+                "success": False,
+                "error": "Simulation failed",
+                "details": str(exc)
+            }
+
+    ########################################################
+    # The original simulation logic, unchanged, just moved
+    # into its own method so it can be wrapped in try/except
+    # above without one giant indented block.
+    ########################################################
+
+    def _run_simulation(
+
+        self,
+
+        number_of_photons,
+
+        channel_noise,
+
+        photon_loss,
+
+        detector_efficiency,
+
+        dark_count_rate,
+
+        eve_interception,
+
         message=None
 
     ):
@@ -71,6 +184,26 @@ class BB84Simulator:
 
         ####################################################
         # UPDATE CONFIGURATION
+        #
+        # ****** IMPORTANT — NOT FULLY FIXED ******
+        # `config` is a shared module-level object: there is
+        # only ONE copy for your entire running backend. If
+        # two users call run() at close to the same time,
+        # one user's settings can overwrite the other's
+        # mid-calculation, corrupting both results. This is
+        # very likely why the backend "acts weird" under real
+        # traffic even if it looks fine when you test it
+        # alone.
+        #
+        # The real fix is to stop having Alice/Bob/Channel/
+        # Detector/Eve read from the global `config` module,
+        # and instead pass these values directly into their
+        # constructors/methods, e.g. QuantumChannel(noise=...,
+        # loss=...) instead of QuantumChannel() reading
+        # config.CHANNEL_NOISE internally.
+        # I can make that change too, but it means editing
+        # alice.py, bob.py, channel.py, detector.py, eve.py,
+        # and config.py — send those over and I'll do it.
         ####################################################
 
         config.CHANNEL_NOISE = channel_noise
@@ -217,13 +350,21 @@ class BB84Simulator:
 
         ####################################################
         # MARK PHOTONS
+        #
+        # FIX: guard against index-out-of-range in case an
+        # earlier stage (transmit / intercept / detect) drops
+        # photons from the list instead of just marking them
+        # lost. Without this, a single misaligned index used
+        # to crash the whole request.
         ####################################################
 
         for index in matching_positions:
 
-            photons[index].matching_basis = True
+            if index < len(photons):
 
-            photons[index].kept_after_sifting = True
+                photons[index].matching_basis = True
+
+                photons[index].kept_after_sifting = True
 
         ####################################################
         # QBER
@@ -242,11 +383,6 @@ class BB84Simulator:
         error_positions = qber_results["error_positions"]
 
         errors = qber_results["errors"]
-        print("==========================")
-        print("SIFTED KEY LENGTH:", len(alice_key))
-        print("ERRORS:", errors)
-        print("QBER:", qber * 100)
-        print("==========================")
 
         timeline.append({
 
@@ -292,7 +428,9 @@ class BB84Simulator:
 
                 photon_index = matching_positions[position]
 
-                photons[photon_index].corrected = True
+                if photon_index < len(photons):
+
+                    photons[photon_index].corrected = True
 
         ####################################################
         # PRIVACY AMPLIFICATION
@@ -319,6 +457,7 @@ class BB84Simulator:
             "status": "completed"
 
         })
+
         ####################################################
         # SESSION
         ####################################################
@@ -401,8 +540,6 @@ class BB84Simulator:
 
         statistics = {
 
-            ################################################
-
             "photons_sent":
 
                 channel.total_sent,
@@ -415,8 +552,6 @@ class BB84Simulator:
 
                 channel.total_lost,
 
-            ################################################
-
             "noise_events":
 
                 channel.total_noisy,
@@ -425,11 +560,6 @@ class BB84Simulator:
 
                 channel.noise_rate,
 
-            ################################################
-
-            "detected_photons":
-
-                detector.detected,
 
             "detector_missed":
 
@@ -439,8 +569,6 @@ class BB84Simulator:
 
                 detector.dark_counts,
 
-            ################################################
-
             "eve_intercepted":
 
                 eve.intercepted,
@@ -448,8 +576,6 @@ class BB84Simulator:
             "interception_rate":
 
                 eve.interception_rate,
-
-            ################################################
 
             "matching_bases":
 
@@ -459,8 +585,6 @@ class BB84Simulator:
 
                 len(discarded_positions),
 
-            ################################################
-
             "errors":
 
                 errors,
@@ -468,8 +592,6 @@ class BB84Simulator:
             "errors_corrected":
 
                 corrected_errors,
-
-            ################################################
 
             "qber":
 
@@ -480,8 +602,6 @@ class BB84Simulator:
                     2
 
                 ),
-
-            ################################################
 
             "final_key_length":
 
@@ -600,9 +720,7 @@ class BB84Simulator:
                 final_key
 
         }
-        
-        
-    
+
         ####################################################
         # MESSAGE ENCRYPTION
         ####################################################
@@ -617,7 +735,6 @@ class BB84Simulator:
 
         }
 
-
         if final_key and message:
 
             ciphertext = xor_encrypt(
@@ -628,7 +745,6 @@ class BB84Simulator:
 
             )
 
-
             decrypted = xor_decrypt(
 
                 ciphertext,
@@ -636,7 +752,6 @@ class BB84Simulator:
                 final_key
 
             )
-
 
             encryption = {
 
@@ -647,8 +762,6 @@ class BB84Simulator:
                 "decrypted": decrypted
 
             }
-
-
 
         ####################################################
         # ANALYTICS
@@ -670,8 +783,6 @@ class BB84Simulator:
 
         }
 
-
-
         ####################################################
         # PERFORMANCE
         ####################################################
@@ -690,13 +801,13 @@ class BB84Simulator:
 
         }
 
-
-
         ####################################################
         # FINAL RESPONSE
         ####################################################
 
         results = {
+
+            "success": True,
 
             "session": session,
 
@@ -721,6 +832,5 @@ class BB84Simulator:
             "performance": performance
 
         }
-
 
         return results

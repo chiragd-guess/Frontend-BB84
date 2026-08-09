@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import ChatWindow from "../ChatWindow/ChatWindow";
-
 import { runSimulation } from "../../services/simulationService";
 import { encryptMessage } from "../../services/api";
 
@@ -249,23 +247,6 @@ BB84 Secured
 
 
 </div>
-
-
-
-
-
-<ChatWindow
-
-title=""
-
-messages={simulation.messages}
-
-emptyText="Waiting for secure quantum message..."
-
-/>
-
-
-
 
 
 

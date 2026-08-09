@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import AlicePanel from "../../components/AlicePanel/AlicePanel";
 import QuantumChannelPanel from "../../components/QuantumChannelPanel/QuantumChannelPanel";
 import BobPanel from "../../components/BobPanel/BobPanel";
+import ChatWindow from "../../components/ChatWindow/ChatWindow";
 
 import StatusCard from "../../components/StatusCard/StatusCard";
 import AnalyticsChart from "../../components/AnalyticsChart/AnalyticsChart";
@@ -24,11 +25,17 @@ export default function Dashboard() {
           BB84 MAIN VISUALIZATION
       ========================== */}
 
-    <div className="panels-row">
+    <div className="quantum-flow">
 
         <AlicePanel
           simulation={simulation}
           setSimulation={setSimulation}
+        />
+
+        <ChatWindow
+          title="Chat"
+          messages={simulation.messages}
+          emptyText="Waiting for secure quantum message..."
         />
 
         <BobPanel

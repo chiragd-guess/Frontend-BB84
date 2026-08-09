@@ -1,199 +1,163 @@
-const steps = [
-  {
-    icon: "👩",
-    title: "Alice prepares photons",
-    description:
-      "Alice encodes random bits as quantum states using two bases — rectilinear (Z) and diagonal (X). Each photon carries one qubit.",
-  },
-  {
-    icon: "⚛",
-    title: "Photons travel the quantum channel",
-    description:
-      "Qubits are transmitted one by one across the quantum channel. Any interception by Eve disturbs the quantum states — this is detectable.",
-  },
-  {
-    icon: "👨",
-    title: "Bob measures",
-    description:
-      "Bob measures each incoming photon using a randomly chosen basis. About half his choices will match Alice's — those bits are kept.",
-  },
-  {
-    icon: "🔁",
-    title: "Basis comparison",
-    description:
-      "Alice and Bob compare their bases over a public channel. They discard bits where their bases didn't match, keeping a shared sifted key.",
-  },
-  {
-    icon: "📊",
-    title: "QBER estimation",
-    description:
-      "They calculate the Quantum Bit Error Rate (QBER). A QBER above ~11% means Eve was likely eavesdropping — the key is discarded.",
-  },
-  {
-    icon: "🔑",
-    title: "Shared key established",
-    description:
-      "If QBER is low, the sifted key is used to encrypt messages with AES-256. The key was never transmitted — it was generated from quantum physics.",
-  },
-];
-
+import React from "react";
 
 export default function About() {
+const steps = [
+["⚛", "1. Prepare", "Alice encodes bits into photons using random bases."],
+["↗", "2. Send", "Photons are sent to Bob over a quantum channel."],
+["◎", "3. Measure", "Bob measures each photon using a random basis."],
+["⇄", "4. Compare", "They compare bases over a classical channel and keep matches."],
+["⚿", "5. Key Generated", "A shared secret key is formed and used for encryption."],
+];
 
+const advantages = [
+["⛨", "Unconditional Security", "Security guaranteed by quantum mechanics, not computational assumptions."],
+["◉", "Eavesdropper Detection", "Any attempt to intercept photons introduces detectable disturbances."],
+["⚿", "Perfect Forward Secrecy", "New keys are generated for every session, keeping future messages safe."],
+["⚡", "Quantum Future Ready", "Built to explore and understand quantum communication technologies."],
+];
 
-return (
+const uses = [
+["✉", "Secure Messaging", "End-to-end encrypted conversation."],
+["⛨", "Military & Government", "Ultra-secure communication channels."],
+["🏦", "Financial Systems", "Protect critical financial infrastructure."],
+["◈", "IoT & Networks", "Secure device authentication & data."],
+];
 
-<>
+return ( <div className="about-page"> <section className="about-hero"> <h1>
+About BB84 <span>// Sim</span> </h1> <p>Quantum secure communication using the BB84 protocol</p>
 
+```
+    <p>
+      BB84 Sim is a quantum secure messenger simulator that demonstrates
+      the BB84 Quantum Key Distribution protocol. It lets two parties
+      generate a shared secret key using quantum mechanics, then exchange
+      encrypted messages with unconditional security.
+    </p>
 
-<div className="about-page">
+    <div className="about-diagram">
+      <span>Alice</span>
+      <span>→</span>
+      <span>Eve</span>
+      <span>→</span>
+      <span>Bob</span>
+    </div>
+  </section>
 
+  <section className="about-grid">
+    <div>
+      <div className="about-panel">
+        <h2>How BB84 Works</h2>
 
-<p>
-About — BB84 Quantum Key Distribution
-</p>
+        <div className="steps">
+          {steps.map(([icon, title, text]) => (
+            <div className="step" key={title}>
+              <div className="step-icon">{icon}</div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <div className="about-panel">
+        <h2>BB84 Protocol Essentials</h2>
 
+        <div className="essentials">
+          <div>
+            <h3>⤢ Bases</h3>
+            <p>Rectilinear (+) and Diagonal (×)</p>
+          </div>
 
-<p>
-BB84 is the world's first quantum cryptography protocol, invented
-by Charles Bennett and Gilles Brassard in 1984. It uses the laws
-of quantum mechanics to let two parties — Alice and Bob — generate
-a provably secure shared key, even over an untrusted channel.
-</p>
+          <div>
+            <h3>01 Bits</h3>
+            <p>
+              0 → Horizontal / Left
+              <br />
+              1 → Vertical / Right
+            </p>
+          </div>
 
+          <div>
+            <h3>∴ Photons</h3>
+            <p>Information is carried by single photons, one at a time.</p>
+          </div>
 
+          <div>
+            <h3>✓ Key</h3>
+            <p>Only matching bases are kept to form the secret key.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div>
+      <div className="about-panel">
+        <h2>Key Advantages</h2>
 
-<p>
-How it works
-</p>
+        {advantages.map(([icon, title, text]) => (
+          <div className="advantage" key={title}>
+            <span>{icon}</span>
+            <div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
+      <div className="about-panel">
+        <h2>Use Cases</h2>
 
+        <div className="use-cases">
+          {uses.map(([icon, title, text]) => (
+            <div key={title}>
+              <span>{icon}</span>
+              <div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
-<ul className="progress-timeline">
+  <section className="about-bottom">
+    <div className="about-panel">
+      <h2>Technologies Used</h2>
 
-{steps.map((step, i) => (
+      <div className="technologies">
+        <span>⚛ Quantum Mechanics</span>
+        <span>⚿ BB84 Protocol</span>
+        <span>🔒 AES Encryption</span>
+        <span>⌥ Python</span>
+        <span>📈 Data Visualization</span>
+      </div>
+    </div>
 
-<li
-key={i}
-className="progress-timeline__step"
->
+    <div className="about-panel">
+      <h2>About the Project</h2>
 
+      <p>
+        BB84 // Sim is an educational simulator built to make the concepts
+        of quantum communication simple, interactive, and visual. It helps
+        students, researchers, and developers understand how the future of
+        secure communication works.
+      </p>
 
-<div className="progress-step__icon">
+      <small>Version 1.0.0 · Made with ⚛ and ♥</small>
+    </div>
 
-{step.icon}
+    <div className="about-panel">
+      <h2>Developer</h2>
+      <h3>Quantum Computing Team</h3>
+      <p>Passionate about building the quantum future.</p>
+    </div>
+  </section>
 
+  <footer>🔒 BB84 // SIM — Quantum Secure Communication</footer>
 </div>
-
-
-
-<div className="progress-step__content">
-
-
-<h4>
-{step.title}
-</h4>
-
-
-<span>
-{step.description}
-</span>
-
-
-</div>
-
-
-
-{i < steps.length - 1 && (
-
-<div className="progress-step__line"/>
-
-)}
-
-
-</li>
-
-))}
-
-
-</ul>
-
-
-
-
-
-<p>
-The roles
-</p>
-
-
-
-<div className="bottom-row">
-
-
-<div className="status-card">
-
-<p>
-👩 Alice
-</p>
-
-<p>
-The sender. Prepares and transmits qubits, initiates the key exchange.
-</p>
-
-</div>
-
-
-
-<div className="status-card">
-
-<p>
-👨 Bob
-</p>
-
-<p>
-The receiver. Measures qubits, compares bases, confirms the shared key.
-</p>
-
-</div>
-
-
-
-<div className="status-card">
-
-<p>
-🕵️ Eve
-</p>
-
-<p>
-The eavesdropper. Any interception disturbs the quantum states and raises the QBER, revealing her presence.
-</p>
-
-</div>
-
-
-</div>
-
-
-
-
-
-<p>
-This simulation is educational. Real quantum cryptography requires
-physical quantum hardware — single photon emitters, optical fibres,
-and quantum detectors.
-</p>
-
-
-
-</div>
-
-
-</>
 
 );
-
-
 }

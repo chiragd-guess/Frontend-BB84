@@ -9,7 +9,7 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
   const totalSteps = 8;
   const photonPct = Math.min(
     100,
-    Math.max(0, ((currentStage - 1) / (totalSteps - 1)) * 100)
+    Math.max(0, ((currentStage - 0.5) / totalSteps) * 100)
   );
 
   return (

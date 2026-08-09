@@ -58,8 +58,8 @@ export default function AnalyticsChart({ simulation }) {
     },
 
     {
-      label:"Detected",
-      value:stats.detected_photons,
+      label:"Matching Bases",
+      value:stats.matching_bases,
       color:"#a78bfa"
     },
 

@@ -1,5 +1,4 @@
 import MessageComposer from "../MessageComposer/MessageComposer";
-import ChatWindow from "../ChatWindow/ChatWindow";
 
 export default function AlicePanel({ simulation, setSimulation }) {
   return (
@@ -31,12 +30,6 @@ export default function AlicePanel({ simulation, setSimulation }) {
         </div>
 
       </div>
-
-      <ChatWindow
-        title=""
-        messages={simulation.messages}
-        emptyText="Waiting for secure quantum message..."
-      />
 
       <MessageComposer
         simulation={simulation}
