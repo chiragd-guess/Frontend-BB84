@@ -55,7 +55,7 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
       <div className="quantum-channel-panel__banner">
         <p>
           {aborted
-            ? "⚠ Transmission Aborted — Eve Detected"
+            ? "⚠ Transmission Aborted — High QBER"
             : secure
             ? "✓ Quantum Key Established Successfully"
             : "Awaiting key exchange..."}

@@ -22,7 +22,7 @@ export default function SessionSummary({ simulation }) {
       label: "Status",
       value:
       simulation.status === "aborted"
-      ? "EVE INTERFERED"
+      ? (simulation.channel?.eve ? "EVE INTERFERED" : "HIGH QBER")
       : simulation.status
     },
     {
