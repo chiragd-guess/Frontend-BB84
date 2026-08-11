@@ -196,18 +196,20 @@ export async function runSimulation(setSimulation, messageText = null, sender = 
           analytics: { qber, photonsSent, keyLength },
           session: {
             id: sessionId,
-            secure: false,
+            secure: apiResult.security.secure,
             duration,
             startTime,
           },
           apiResult,
-        };
+};
 
         if (messageText && sender) {
+          const senderKey = sender.toLowerCase();
           return {
             ...completed,
-            bob: {
-              ...prev.bob,
+            [senderKey]: {
+              ...prev[senderKey],
+              message: "",
               encryptedMessage: encryptedSnippet,
               decryptedMessage: messageText,
             },

@@ -37,7 +37,9 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
       </div>
 
       <div className="stage-track-row">
-        <div className="link-avatar">A</div>
+        <div className={`link-avatar ${simulation?.initiator === "Bob" ? "bob" : ""}`}>
+          {simulation?.initiator === "Bob" ? "B" : "A"}
+        </div>
 
         <div className="stage-track-wrap">
           <div className="stage-line"></div>
@@ -49,7 +51,9 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
           <ProgressTimeline currentStage={currentStage} failed={aborted} />
         </div>
 
-        <div className="link-avatar bob">B</div>
+        <div className={`link-avatar ${simulation?.initiator === "Bob" ? "" : "bob"}`}>
+          {simulation?.initiator === "Bob" ? "A" : "B"}
+        </div>
       </div>
 
       <div

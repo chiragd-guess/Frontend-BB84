@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { runSimulation } from "../../services/simulationService";
 import { encryptMessage } from "../../services/api";
 
@@ -8,6 +9,8 @@ export default function MessageComposer({
   setSimulation,
   user = "Alice",
 }) {
+
+  const [sendError, setSendError] = useState(null);
 
   const keyEstablished =
     simulation.status === "completed" &&
@@ -61,54 +64,45 @@ export default function MessageComposer({
 
     if(keyEstablished){
 
+      setSendError(null);
 
-      const encryptedResult = await encryptMessage(
-        message,
-        simulation.apiResult.keys.final_key
-      );
+      try {
+        const encryptedResult = await encryptMessage(
+          message,
+          simulation.apiResult.keys.final_key
+        );
 
-
-
-      setSimulation((prev)=>({
-
-        ...prev,
-      
-        messages:[
-          ...prev.messages,
-      
-          {
-            id:Date.now(),
-      
-            sender:user,
-      
-            time:new Date().toLocaleTimeString([],{
-              hour:"2-digit",
-              minute:"2-digit"
-            }),
-      
-            text:message
+        setSimulation((prev)=>({
+          ...prev,
+          messages:[
+            ...prev.messages,
+            {
+              id:Date.now(),
+              sender:user,
+              time:new Date().toLocaleTimeString([],{
+                hour:"2-digit",
+                minute:"2-digit"
+              }),
+              text:message
+            }
+          ],
+          [currentUser]:{
+            ...prev[currentUser],
+            message:"",
+            encryptedMessage:
+              encryptedResult.ciphertext,
+            decryptedMessage:
+              encryptedResult.decrypted
           }
-      
-        ],
-      
-      
-        [currentUser]:{
-      
-          ...prev[currentUser],
-      
-          message:"",
-      
-          encryptedMessage:
-            encryptedResult.ciphertext,
-      
-          decryptedMessage:
-            encryptedResult.decrypted
-      
-        }
-      
-      
-      }));
-
+        }));
+      } catch (error) {
+        console.error("Encryption failed:", error);
+        setSendError(
+          error?.message
+            ? `Send failed: ${error.message}`
+            : "Send failed — could not reach the encryption endpoint."
+        );
+      }
 
       return;
 
@@ -204,6 +198,12 @@ export default function MessageComposer({
         {MAX_LENGTH}
 
       </p>
+
+      {sendError && (
+        <p style={{ color: "var(--danger)", fontSize: "12px", marginTop: "4px" }}>
+          {sendError}
+        </p>
+      )}
 
 
 
