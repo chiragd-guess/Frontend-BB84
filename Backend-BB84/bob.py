@@ -111,6 +111,19 @@ class Bob:
 
             ################################################
 
+            ################################################
+            # Dark Count
+            #
+            # A dark count is a false detector click — the
+            # measurement it produces carries no information
+            # about the transmitted photon, so it's replaced
+            # with a random bit instead of the "real" reading.
+            ################################################
+
+            if photon.dark_count:
+
+                bit = random.randint(0, 1)
+
             photon.bob_bit = bit
 
             self.bits.append(bit)
