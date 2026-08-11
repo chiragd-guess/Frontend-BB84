@@ -36,6 +36,16 @@ export default function Navbar({ simulation }) {
             About
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/contacts"
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
+          >
+            Contacts
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
