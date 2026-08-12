@@ -284,7 +284,6 @@ export function LossBreakdownCard({ sent, photonsLost, detectorMissed, darkCount
   const rows = hasRun
     ? [
         { label: "Channel Loss", value: photonsLost, color: "var(--danger)" },
-
         { label: "Noise Events", value: noiseEvents, color: "var(--accent)" },
       ]
     : [];

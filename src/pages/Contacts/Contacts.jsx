@@ -59,7 +59,7 @@ export default function Contacts() {
 
   const mentees = [
     { name: "Anamol Neupane", role: "Mentee", title: "Presentation Design & BB84 Research", email: "anamolneupane123@gmail.com", photo: "/contacts/anmol.jpg", },
-    { name: "Anju Dhakal", role: "Mentee", title: "Post Design & BB84 Research", email: "pinganjudhakal@gmail.com", photo: "/contacts/mentor1.jpg", },
+    { name: "Anju Dhakal", role: "Mentee", title: "Post Design, Experimental design & BB84 Research", email: "pinganjudhakal@gmail.com", photo: "/contacts/anju.png", },
     { name: "Atal Chalise", role: "Mentee", title: "Backend Development, Experimental design & Technical Documentation", email: "atalchalise@gmail.com", photo: "/contacts/atal.png",},
     { name: "Bibhuti Ranabhat", role: "Mentee", title: "Technical Documentation, Post Design & BB84 Research", email: "biburanabhat756311@gmail.com", photo: "/contacts/bib.jpg", },
     { name: "Chirag Dahal", role: "Mentee", title: "Web Development, Backend & Deployment", email: "chiragdahal0013@gmail.com", photo: "contacts/chirag.png",},
