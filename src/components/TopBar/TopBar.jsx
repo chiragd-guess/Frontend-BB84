@@ -1,5 +1,5 @@
 import StatusPill from "../StatusPill/StatusPill";
-import logo from "../../assets/images/logo.png";
+import logo from "/Users/macair45/Documents/Frontend-BB84/Reference_images/logon.png";
 
 export default function TopBar({ simulation, onReset, drawerOpen, onToggleDrawer }) {
   const status = simulation?.status ?? "idle";

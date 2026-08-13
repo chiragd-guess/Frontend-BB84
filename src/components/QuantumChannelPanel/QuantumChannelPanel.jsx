@@ -28,9 +28,9 @@ export default function QuantumChannelPanel({ currentStage, simulation }) {
             </div>
           </div>
           <div className="link-meta">
-            <div className="k">QBER</div>
+           
             <div className="v">
-              {qber !== undefined && qber !== null ? `${qber}%` : "—"}
+              
             </div>
           </div>
         </div>

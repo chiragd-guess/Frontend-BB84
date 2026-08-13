@@ -227,12 +227,11 @@ export default function QuickControls({
 
 
 
-      <button onClick={onRun}>
+      <button onClick={() => onRun()}>
 
         Run Simulation
 
       </button>
-
 
 
 

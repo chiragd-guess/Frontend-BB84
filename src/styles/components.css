@@ -203,7 +203,7 @@
   position:relative;
 
   width:auto;
-  height:106px;
+  height:146px;
   padding:4px;
 
   display:flex;
@@ -3571,4 +3571,116 @@ p{
   .about-adv-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ================================
+   QUANTUM STATISTICS / PHOTON TRANSMISSION / SESSION SUMMARY
+   — remove white/default border, unify color + font with rest of dashboard
+================================ */
+
+.quantum-statistics,
+.photon-chart,
+.session-summary{
+  border:none;
+  background:var(--card-bg);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(4px);
+}
+
+/* Headings / panel titles inside these three */
+.quantum-statistics h2,
+.quantum-statistics h3,
+.photon-chart h2,
+.photon-chart h3,
+.session-summary h2,
+.session-summary h3{
+  font-family:"JetBrains Mono",monospace;
+  color:var(--text-primary);
+  border-bottom:1px solid var(--border-color);
+}
+
+/* Labels (Sent, Received, Lost, QBER, etc.) */
+.quantum-statistics span,
+.photon-chart span,
+.session-summary span,
+.quantum-statistics label,
+.photon-chart label,
+.session-summary label{
+  font-family:"JetBrains Mono",monospace;
+  color:var(--text-secondary);
+}
+
+/* Values/numbers (906, 0.49%, 255 bits, etc.) */
+.quantum-statistics strong,
+.quantum-statistics b,
+.photon-chart strong,
+.photon-chart b,
+.session-summary strong,
+.session-summary b{
+  font-family:"JetBrains Mono",monospace;
+  color:var(--accent);
+  text-shadow:0 0 8px var(--accent-soft);
+}
+
+/* Row dividers — swap any plain/white border for theme border */
+.quantum-statistics__row,
+.session-summary__row,
+.photon-chart__row,
+.quantum-statistics > div,
+.photon-chart > div,
+.session-summary > div{
+  border-bottom:1px solid var(--border-color);
+}
+
+/* QBER "✓ Safe" tag */
+.photon-chart .qber-safe,
+.quantum-statistics .qber-safe{
+  color:var(--success);
+  font-family:"JetBrains Mono",monospace;
+}
+
+/* ---- Footer disclaimer: match theme, no white border ---- */
+.footer-disclaimer{
+  border-top:1px solid var(--border-color);
+  color:var(--text-secondary);
+  font-family:"JetBrains Mono",monospace;
+  background:linear-gradient(180deg, transparent, rgba(217,100,30,.04));
+}
+
+
+.quantum-statistics.quantum-statistics,
+.photon-chart.photon-chart{
+  border: none !important;
+  background: var(--card-bg) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Only target real text-bearing tags, never a blanket * */
+.quantum-statistics.quantum-statistics span,
+.quantum-statistics.quantum-statistics p,
+.quantum-statistics.quantum-statistics label,
+.quantum-statistics.quantum-statistics div,
+.photon-chart.photon-chart span,
+.photon-chart.photon-chart p,
+.photon-chart.photon-chart label,
+.photon-chart.photon-chart div{
+  font-family: "JetBrains Mono", monospace !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.quantum-statistics.quantum-statistics strong,
+.quantum-statistics.quantum-statistics b,
+.photon-chart.photon-chart strong,
+.photon-chart.photon-chart b{
+  color: var(--accent) !important;
+  text-shadow: 0 0 8px var(--accent-soft) !important;
+}
+
+.quantum-statistics.quantum-statistics svg,
+.photon-chart.photon-chart svg{
+  border: none !important;
+  outline: none !important;
 }

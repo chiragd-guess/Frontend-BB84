@@ -58,7 +58,7 @@ export default function AnalyticsChart({ simulation }) {
     },
 
     {
-      label:"Matching Bases",
+      label:"Mt Bases",
       value:stats.matching_bases,
       color:"#a78bfa"
     },

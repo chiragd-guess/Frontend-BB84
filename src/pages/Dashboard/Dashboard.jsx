@@ -72,13 +72,7 @@ export default function Dashboard() {
 
 
 
-          <StatusCard
-
-            label="QBER"
-
-            value={`${simulation.analytics.qber}%`}
-
-          />
+          
 
 
 

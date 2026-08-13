@@ -40,7 +40,7 @@ function createAbortMessage(qber, threshold, eveOn) {
 
 // letters × 8 bits × 3 safety margin, minimum 64
 function calcPhotons(messageText) {
-  if (!messageText || !messageText.trim()) return 1000;
+  if (typeof messageText !== "string" || !messageText.trim()) return 1000;
   const bits = messageText.trim().length * 8;
   return Math.max(1000, bits * 3);
 }

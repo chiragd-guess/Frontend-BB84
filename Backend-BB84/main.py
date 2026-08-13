@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from encryption import xor_encrypt, xor_decrypt
 
 from simulator import BB84Simulator
 
@@ -53,3 +54,28 @@ def simulate(data: SimulationRequest):
         eve_interception=1.0 if data.eve else 0.0,
         message=data.message,
     )
+    
+
+class EncryptRequest(BaseModel):
+    message: str
+    key: str
+
+
+@app.post("/encrypt")
+def encrypt(data: EncryptRequest):
+
+    if not data.key:
+        return {
+            "success": False,
+            "error": "No key provided"
+        }
+
+    ciphertext = xor_encrypt(data.message, data.key)
+    decrypted = xor_decrypt(ciphertext, data.key)
+
+    return {
+        "success": True,
+        "plaintext": data.message,
+        "ciphertext": ciphertext,
+        "decrypted": decrypted
+    }
