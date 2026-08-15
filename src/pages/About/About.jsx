@@ -149,7 +149,7 @@ const EVE_WHY_FAILS = [
 const TECH_STACK = [
   ["⚛", "Quantum Mechanics", "Core physical principles"],
   ["↗", "BB84 Protocol", "Quantum key distribution"],
-  ["⚿", "AES Encryption", "Secure messaging layer"],
+  ["⚿", "XOR Encryption", "Secure messaging layer"],
   ["⌥", "Python", "Core logic & simulation"],
   ["▥", "Data Visualization", "Interactive analytics"],
 ];
